@@ -56,3 +56,27 @@ class HotelDataFilter:
         Filter the DataFrame based on the meal option
         """
         return self.df[self.df["meal"] == meal_option]
+   
+    def filter_by_specific_month(self, month: str) -> pd.DataFrame:
+        """
+        Filter the DataFrame based on a specific month
+        """
+        return self.df[self.df["arrival_date_month"] == month]
+
+    def filter_by_week_number(self, week_number: int) -> pd.DataFrame:
+        """
+        Filter the DataFrame based on a specific week number
+        """
+        return self.df[self.df["arrival_date_week_number"] == week_number]
+
+    def filter_by_adults_to_children_ratio(self, max_ratio: float) -> pd.DataFrame:
+        """
+        Filter the DataFrame based on the ratio of adults to children
+        """
+        return self.df[(self.df["children"] > 0) & (self.df["adults"] / self.df["children"] <= max_ratio)]
+
+    def filter_by_babies(self, min_babies: int) -> pd.DataFrame:
+        """
+        Filter the DataFrame based on the number of babies
+        """
+        return self.df[self.df["babies"] >= min_babies]

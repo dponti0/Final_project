@@ -10,3 +10,5 @@ pytest
 flake8 --> flake8 folder/to/lint
 Pylint --> pylint folder/to/lint
 
+## Comments (s6 assignment)
+
