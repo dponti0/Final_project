@@ -6,7 +6,7 @@ import pandas as pd
 import click
 import matplotlib.pyplot as plt
 import seaborn as sns
-from filtering import HotelDataFilter  # Import the filtering class
+from .filtering import HotelDataFilter  # Import the filtering class
 
 # Elaborate on the data analysis class
 class HotelDataAnalysis:
