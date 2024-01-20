@@ -1,0 +1,10 @@
+script que filtre por nacionalidad
+
+script que filtre por año mínimo
+
+gráfica con los distintos tipos de customers (output)
+
+gráfica de los top 5 paises por tipo de hotel
+
+
+

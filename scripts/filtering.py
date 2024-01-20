@@ -3,6 +3,7 @@ Code for filtering
 """
 import pandas as pd
 
+
 class HotelDataFilter:
     """
     Class for filtering operations on a Hotel Reservation DataFrame
@@ -14,7 +15,7 @@ class HotelDataFilter:
         """
         self.df = df
 
-    def filter_by_cancellation_status(self, canceled: bool) -> pd.DataFrame:
+    def filter_cancel_status(self, canceled: bool) -> pd.DataFrame:
         """
         Filter the DataFrame based on cancellation status
         """
@@ -32,7 +33,9 @@ class HotelDataFilter:
         """
         return self.df[self.df["country"] == country]
 
-    def filter_by_stay_length(self, min_weekend_nights: int, min_week_nights: int) -> pd.DataFrame:
+    def filter_by_stay_length(
+        self, min_weekend_nights: int, min_week_nights: int
+    ) -> pd.DataFrame:
         """
         Filter the DataFrame based on the length of stay
         """
@@ -41,7 +44,9 @@ class HotelDataFilter:
             & (self.df["stays_in_week_nights"] >= min_week_nights)
         ]
 
-    def filter_by_guests(self, min_adults: int, min_children: int, min_babies: int) -> pd.DataFrame:
+    def filter_by_guests(
+        self, min_adults: int, min_children: int, min_babies: int
+    ) -> pd.DataFrame:
         """
         Filter the DataFrame based on the number of guests
         """
@@ -56,7 +61,7 @@ class HotelDataFilter:
         Filter the DataFrame based on the meal option
         """
         return self.df[self.df["meal"] == meal_option]
-   
+
     def filter_by_specific_month(self, month: str) -> pd.DataFrame:
         """
         Filter the DataFrame based on a specific month
@@ -69,11 +74,14 @@ class HotelDataFilter:
         """
         return self.df[self.df["arrival_date_week_number"] == week_number]
 
-    def filter_by_adults_to_children_ratio(self, max_ratio: float) -> pd.DataFrame:
+    def filter_adults_children_ratio(self, max_ratio: float) -> pd.DataFrame:
         """
         Filter the DataFrame based on the ratio of adults to children
         """
-        return self.df[(self.df["children"] > 0) & (self.df["adults"] / self.df["children"] <= max_ratio)]
+        return self.df[
+            (self.df["children"] > 0)
+            & (self.df["adults"] / self.df["children"] <= max_ratio)
+        ]
 
     def filter_by_babies(self, min_babies: int) -> pd.DataFrame:
         """

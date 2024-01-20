@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from .filtering import HotelDataFilter  # Import the filtering class
 
+
 # Elaborate on the data analysis class
 class HotelDataAnalysis:
     """
@@ -44,12 +45,17 @@ class HotelDataAnalysis:
         Plot the number of reservations for each hotel name
         """
         plt.figure(figsize=(12, 6))
-        sns.countplot(x="hotel_name", data=self.df, order=self.df['hotel_name'].value_counts().index)
+        sns.countplot(
+            x="hotel_name",
+            data=self.df,
+            order=self.df["hotel_name"].value_counts().index,
+        )
         plt.title("Number of Reservations per Hotel")
         plt.xlabel("Hotel Name")
         plt.ylabel("Number of Reservations")
         plt.xticks(rotation=45, ha="right")
         plt.show()
+
 
 def load_dataset(filename):
     """
@@ -66,6 +72,7 @@ def load_dataset(filename):
         raise TypeError(f"The extension is {extension} and not 'csv'.")
     return pd.read_csv(filename)
 
+
 @click.command()
 @click.option("-i", "--input", help="Path to the CSV file", required=True)
 def analyze_dataset(input):
@@ -78,7 +85,7 @@ def analyze_dataset(input):
         filter_instance = HotelDataFilter(df)
 
         # Apply some filters (modify as needed)
-        filtered_df = filter_instance.filter_by_cancellation_status(canceled=False)
+        filtered_df = filter_instance.filter_cancel_status(canceled=False)
 
         # Create an instance of the analysis class
         analysis_instance = HotelDataAnalysis(filtered_df)
@@ -94,6 +101,7 @@ def analyze_dataset(input):
         print(f"Error: The file at '{input}' is empty")
     except Exception as e:
         print(f"An unexpected error occurred: {str(e)}")
+
 
 if __name__ == "__main__":
     analyze_dataset()
