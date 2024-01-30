@@ -9,3 +9,4 @@ black==23.12.1
 matplotlib == 3.8.2
 seaborn == 0.13.1
 scikit-learn
+pyarrow 

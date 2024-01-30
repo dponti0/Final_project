@@ -50,60 +50,68 @@ class DataCleaningClass:
         """
         self.df['age_group'] = ((self.df['age'] // 10) * 10).astype(int)
 
-# Click commands
+# Click command
 @click.command(short_help="Clean and filter dataset")
 @click.option("-i", "--input", default="healthcare_dataset.csv", required=True, help="Input CSV file path")
 @click.option("-o", "--output", default="cleaned_healthcare_dataset.csv", help="Output CSV file path")
-def clean_and_filter_dataset(input, output):
+
+def main_function(input, output):
     """
-    Commands to clean and filter a healthcare dataset.
+    Main function to load, clean & filter the dataset
     """
-    # Load the dataset into a Pandas DataFrame
-    health_data = pd.read_csv(input)
+    try:
+        extension = input.rsplit(".", 1)[-1]
+        if extension.lower() != "csv":
+            raise TypeError(f"The extension is {extension} and not 'csv'. Please provide a CSV file.")
+        
+        # Load the dataset
+        health_data = pd.read_csv(input)
 
-    # Print the shape of the original dataset
-    print("Original dataset shape:", health_data.shape)
+        # Print the shape of the original dataset
+        print("Original dataset shape:", health_data.shape)
 
-    # Initialize the cleaning class
-    cleaning_instance = DataCleaningClass(health_data)
+        # Initialize the cleaning class
+        cleaning_instance = DataCleaningClass(health_data)
 
-    # Remove outliers from specific columns
-    columns_with_outliers = ['age', 'avg_glucose_level', 'bmi']
-    cleaned_data = cleaning_instance.remove_outliers(columns_with_outliers)
+        # Remove outliers from specific columns
+        columns_with_outliers = ['age', 'avg_glucose_level', 'bmi']
+        cleaned_data = cleaning_instance.remove_outliers(columns_with_outliers)
 
-    # Remove duplicates
-    cleaned_data = cleaning_instance.remove_duplicates()
+        # Remove duplicates
+        cleaned_data = cleaning_instance.remove_duplicates()
 
-    # Handle missing values
-    cleaned_data = cleaning_instance.handle_missing_values()
+        # Handle missing values
+        cleaned_data = cleaning_instance.handle_missing_values()
 
-    # Create a new column 'age_group' based on age grouping in 10s
-    cleaning_instance.create_age_group_column()
+        # Create a new column 'age_group' based on age grouping in 10s
+        cleaning_instance.create_age_group_column()
 
-    # Print the shape of the cleaned dataset
-    print("Cleaned dataset shape:", cleaned_data.shape)
+        # Print the shape of the cleaned dataset
+        print("Cleaned dataset shape:", cleaned_data.shape)
 
-    # Check if the cleaned dataset has any missing values
-    if cleaned_data.isnull().values.any():
-        print("The cleaned dataset contains missing values")
-    else:
-        print("The cleaned dataset has no missing values")
+        # Check if the cleaned dataset has any missing values
+        if cleaned_data.isnull().values.any():
+            print("The cleaned dataset contains missing values")
+        else:
+            print("The cleaned dataset has no missing values")
 
-    # Check if the cleaned dataset has any duplicates
-    if cleaned_data.duplicated().any():
-        print("The cleaned dataset contains duplicates")
-    else:
-        print("The cleaned dataset has no duplicates either")
+        # Check if the cleaned dataset has any duplicates
+        if cleaned_data.duplicated().any():
+            print("The cleaned dataset contains duplicates")
+        else:
+            print("The cleaned dataset has no duplicates either")
 
-    # Save the cleaned and filtered dataset to the specified output file
-    os.makedirs(os.path.dirname(output), exist_ok=True)     # Create the output folder if it doesn't exist
-    cleaned_data.to_csv(output, index=False)
-    print(f"The cleaned version of the dataset was saved to {output}")
+        # Save the cleaned and filtered dataset to the specified output file
+        os.makedirs(os.path.dirname(output), exist_ok=True)     # Create the output folder if it doesn't exist
+        cleaned_data.to_csv(output, index=False)
+        print(f"The cleaned version of the dataset was saved to {output}")
+
+    except Exception as e:
+        print(f"Error: {str(e)}")
 
 if __name__ == "__main__":
     print("The code is properly working!")
-    clean_and_filter_dataset()
-
+    main_function()
 
 # python scripts/data_cleaning.py -i dataset/healthcare_dataset.csv -o outputs/cleaned_dataset.csv
     
