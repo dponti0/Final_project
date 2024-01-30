@@ -8,14 +8,14 @@ from cleaning_class import DataCleaningClass
 @click.option(
     "-i",
     "--input",
-    default="healthcare_dataset.csv",
+    default="dataset/healthcare_dataset.csv",
     required=True,
     help="Input CSV file path",
 )
 @click.option(
     "-o",
     "--output",
-    default="cleaned_healthcare_dataset.csv",
+    default="outputs/cleaned_dataset.csv",
     help="Output CSV file path",
 )
 def main_function(input, output):
