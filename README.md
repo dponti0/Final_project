@@ -14,3 +14,7 @@ Pylint --> pylint folder/to/lint
 
 Para versiones anteriores a Python 3.3 o si quieres garantizar la compatibilidad con versiones anteriores, incluye __init__.py
 
+used black, flake8 & pylint
+
+el df tiene irregularidad de mayúsculas y minúsculas, por tanto en el script de data cleaning se ponen todas 
+minúsculas
