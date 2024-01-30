@@ -1,0 +1,6 @@
+[MASTER]
+ignore=
+    __pycache__,
+    README.md,
+    requirements.txt,
+    Makefile

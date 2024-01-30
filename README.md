@@ -10,5 +10,7 @@ pytest
 flake8 --> flake8 folder/to/lint
 Pylint --> pylint folder/to/lint
 
-## Comments (s6 assignment)
+## Comments 
+
+Para versiones anteriores a Python 3.3 o si quieres garantizar la compatibilidad con versiones anteriores, incluye __init__.py
 
