@@ -5,7 +5,7 @@
 import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
-from bivariate_analysis import BivariateVisualizer
+from multivariate_analysis import MultivariateVisualizer
 import os
 
 def main():
@@ -17,14 +17,14 @@ def main():
 
     # Crear un objeto PdfPages para almacenar los gráficos en un solo PDF
     uni_pdf_path = "outputs/univariate_analysis.pdf"
-    bi_pdf_path = "outputs/bivariate_analysis.pdf"
+    bi_pdf_path = "outputs/multivariate_analysis.pdf"
 
     uni_pdf_pages = pdf_backend.PdfPages(uni_pdf_path)
     bi_pdf_pages = pdf_backend.PdfPages(bi_pdf_path)
 
-    # Crear instancias de la clase UnivariateVisualizer y BivariateVisualizer
+    # Crear instancias de la clase UnivariateVisualizer y MultivariateVisualizer
     uni_visualizer = UnivariateVisualizer(data, uni_pdf_pages)
-    bi_visualizer = BivariateVisualizer(data, bi_pdf_pages)
+    bi_visualizer = MultivariateVisualizer(data, bi_pdf_pages)
 
     # Llamar a los métodos de visualización (univariate)
     uni_visualizer.visualize_age_distribution()
@@ -40,7 +40,7 @@ def main():
     uni_visualizer.visualize_marital_status_distribution()
     uni_visualizer.visualize_residence_type_distribution()
 
-    # Llamar a los métodos de visualización (bivariate)
+    # Llamar a los métodos de visualización (multivariate)
     bi_visualizer.age_stroke_distribution()
     bi_visualizer.glucose_stroke_distribution()
     bi_visualizer.bmi_stroke_distribution()
@@ -51,6 +51,9 @@ def main():
     bi_visualizer.work_type_stroke_distribution()
     bi_visualizer.marriage_glucose_relation()
     bi_visualizer.marriage_bmi_relation()
+    bi_visualizer.age_stroke_rate_lineplot()
+    bi_visualizer.correlation_heatmap()
+
 
     # Cerrar los objetos PdfPages para finalizar los PDFs
     uni_pdf_pages.close()
@@ -58,8 +61,8 @@ def main():
 
     print()
     print(f"The PDF report including univariate analysis has been saved at: {uni_pdf_path}")
-    print(f"The PDF report including bivariate analysis has been saved at: {bi_pdf_path}")
-    
+    print(f"The PDF report including multivariate analysis has been saved at: {bi_pdf_path}")
+
 if __name__ == "__main__":
     print("The main script is properly running!!")
     main()
