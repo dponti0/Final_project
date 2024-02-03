@@ -66,3 +66,10 @@ class DataCleaningClass:
         """
         self.df["age"] = self.df["age"].astype(int)
         self.df["age_group"] = ((self.df["age"] // 10) * 10).astype(int)
+
+    def remove_rows_with_other_gender(self) -> pd.DataFrame:
+        """
+        Remove rows where 'gender' column contains the value 'other'
+        """
+        self.df = self.df[self.df['gender'] != 'other']
+        return self.df

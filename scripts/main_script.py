@@ -3,45 +3,79 @@
 
 # main_script.py
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from filtering import FilteringClass
+import matplotlib.backends.backend_pdf as pdf_backend
+from univariate_analysis import UnivariateVisualizer
+from multivariate_analysis import MultivariateVisualizer
 import os
 
 def main():
-    # Cargar datos desde la carpeta 'outputs'
+    
     data = pd.read_csv("outputs/cleaned_dataset.csv")
 
-    # Crear la carpeta 'outputs' si no existe (corroborar que existe)
+    # Crear la carpeta 'outputs' si no existe
     os.makedirs("outputs", exist_ok=True)
 
-    # Inicializar la clase de filtrado
-    filter_instance = FilteringClass(data)
+    # Crear un objeto PdfPages para almacenar los gráficos en un solo PDF
+    uni_pdf_path = "outputs/univariate_analysis.pdf"
+    bi_pdf_path = "outputs/multivariate_analysis.pdf"
 
-    # Filtrar por hipertensión, enfermedad cardíaca, alto nivel de glucosa, alto BMI y accidente cerebrovascular
-    hypertension_data = filter_instance.filter_by_hypertension()
-    heartdis_data = filter_instance.filter_by_heart_disease()
-    glucose_data = filter_instance.filter_by_high_glucose()
-    bmi_data = filter_instance.filter_by_high_bmi()
-    strokes_data = filter_instance.filter_by_stroke()
+    uni_pdf_pages = pdf_backend.PdfPages(uni_pdf_path)
+    bi_pdf_pages = pdf_backend.PdfPages(bi_pdf_path)
 
-    # Visualizar y guardar resultados para cada filtro
-    visualize_and_save(hypertension_data, "Hypertension", "outputs/hypertension_plot.png")
-    visualize_and_save(heartdis_data, "Heart Disease", "outputs/heart_disease_plot.png")
-    visualize_and_save(glucose_data, "High Glucose", "outputs/high_glucose_plot.png")
-    visualize_and_save(bmi_data, "High BMI", "outputs/high_bmi_plot.png")
-    visualize_and_save(strokes_data, "Stroke", "outputs/stroke_plot.png")
+    # Crear instancias de la clase UnivariateVisualizer y MultivariateVisualizer
+    uni_visualizer = UnivariateVisualizer(data, uni_pdf_pages)
+    bi_visualizer = MultivariateVisualizer(data, bi_pdf_pages)
 
-def visualize_and_save(data, title, save_path):
-    # Código para visualizar resultados
-    plt.figure(figsize=(10, 6))
-    sns.countplot(x='alguna_columna', data=data)  # Ajusta la columna según tu conjunto de datos
-    plt.title(f"{title} Visualization")
-    plt.xlabel("X Label")
-    plt.ylabel("Y Label")
-    plt.savefig(save_path)  # Guardar el gráfico en la carpeta 'outputs'
-    plt.show()
+    # Llamar a los métodos de visualización (univariate)
+
+    def visualize_univariate_relationships(uni_visualizer):
+        """
+        Visualize univariate distributions using the provided UniVisualizer instance
+        """  
+        uni_visualizer.visualize_age_distribution()
+        uni_visualizer.visualize_age_group_distribution()
+        uni_visualizer.visualize_gender_distribution()
+        uni_visualizer.visualize_hypertension_distribution()
+        uni_visualizer.visualize_heart_disease_distribution()
+        uni_visualizer.visualize_strokes_distribution()
+        uni_visualizer.visualize_glucose_distribution()
+        uni_visualizer.visualize_bmi_distribution()
+        uni_visualizer.visualize_smoking_distribution()
+        uni_visualizer.visualize_work_type_distribution()
+        uni_visualizer.visualize_marital_status_distribution()
+        uni_visualizer.visualize_residence_type_distribution()
+
+    def visualize_multivariate_relationships(bi_visualizer):
+        """
+        Visualize multivariate distributions using the provided MultiVisualizer instance
+        """
+        bi_visualizer.age_stroke_distribution()
+        bi_visualizer.glucose_stroke_distribution()
+        bi_visualizer.bmi_stroke_distribution()
+        bi_visualizer.bmi_glucose_scatter()
+        bi_visualizer.heart_disease_gender_age()
+        bi_visualizer.glucose_smoking_distribution()
+        bi_visualizer.age_bmi_relation()
+        bi_visualizer.work_type_stroke_distribution()
+        bi_visualizer.marriage_glucose_relation()
+        bi_visualizer.marriage_bmi_relation()
+        bi_visualizer.age_stroke_rate_lineplot()
+        bi_visualizer.correlation_heatmap()
+
+    visualize_univariate_relationships(uni_visualizer)
+    visualize_multivariate_relationships(bi_visualizer)
+
+    # Cerrar los objetos PdfPages para finalizar los PDFs
+    uni_pdf_pages.close()
+    bi_pdf_pages.close()
+
+    print()
+    print(f"The PDF report including univariate analysis has been saved at: {uni_pdf_path}")
+    print(f"The PDF report including multivariate analysis has been saved at: {bi_pdf_path}")
 
 if __name__ == "__main__":
     print("The main script is properly running!!")
     main()
+
+# python scripts/main_script.py
+    

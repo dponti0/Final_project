@@ -4,99 +4,109 @@ None
 
 Displaying the first 5 rows of the dataset:
 
-      id  gender   age  hypertension  heart_disease  ... Residence_type avg_glucose_level   bmi   smoking_status  stroke
-0   9046    Male  67.0             0              1  ...          Urban            228.69  36.6  formerly smoked       1
-1  51676  Female  61.0             0              0  ...          Rural            202.21   NaN     never smoked       1
-2  31112    Male  80.0             0              1  ...          Rural            105.92  32.5     never smoked       1
-3  60182  Female  49.0             0              0  ...          Urban            171.23  34.4           smokes       1
-4   1665  Female  79.0             1              0  ...          Rural            174.12  24.0     never smoked       1
+      id  gender  age  hypertension  heart_disease  ... avg_glucose_level   bmi   smoking_status  stroke  age_group
+0   9046    male   67             0              1  ...            228.69  36.6  formerly smoked       1         60
+1  31112    male   80             0              1  ...            105.92  32.5     never smoked       1         80
+2  60182  female   49             0              0  ...            171.23  34.4           smokes       1         40
+3   1665  female   79             1              0  ...            174.12  24.0     never smoked       1         70
+4  56669    male   81             0              0  ...            186.21  29.0  formerly smoked       1         80
 
-[5 rows x 12 columns]
+[5 rows x 13 columns]
 
 Descriptive statistics of the numerical columns:
 
-                 id          age  hypertension  heart_disease  avg_glucose_level          bmi       stroke
-count   5110.000000  5110.000000   5110.000000    5110.000000        5110.000000  4909.000000  5110.000000
-mean   36517.829354    43.226614      0.097456       0.054012         106.147677    28.893237     0.048728
-std    21161.721625    22.612647      0.296607       0.226063          45.283560     7.854067     0.215320
-min       67.000000     0.080000      0.000000       0.000000          55.120000    10.300000     0.000000
-25%    17741.250000    25.000000      0.000000       0.000000          77.245000    23.500000     0.000000
-50%    36932.000000    45.000000      0.000000       0.000000          91.885000    28.100000     0.000000
-75%    54682.000000    61.000000      0.000000       0.000000         114.090000    33.100000     0.000000
-max    72940.000000    82.000000      1.000000       1.000000         271.740000    97.600000     1.000000
+                 id          age  hypertension  heart_disease  avg_glucose_level          bmi       stroke    age_group
+count   4228.000000  4228.000000   4228.000000    4228.000000        4228.000000  4228.000000  4228.000000  4228.000000
+mean   37252.347682    46.491485      0.095080       0.052744         102.283340    29.323534     0.044465    42.090823
+std    20929.429948    19.647754      0.293361       0.223548          40.131679     6.362190     0.206151    19.725566
+min       77.000000    10.000000      0.000000       0.000000          55.120000    13.700000     0.000000    10.000000
+25%    18939.750000    31.000000      0.000000       0.000000          76.610000    24.700000     0.000000    30.000000
+50%    37795.500000    47.000000      0.000000       0.000000          90.855000    28.600000     0.000000    40.000000
+75%    55357.250000    61.250000      0.000000       0.000000         111.765000    33.100000     0.000000    60.000000
+max    72918.000000    82.000000      1.000000       1.000000         248.240000    51.500000     1.000000    80.000000
 
 Sum of missing values for each column:
 
-id                     0
-gender                 0
-age                    0
-hypertension           0
-heart_disease          0
-ever_married           0
-work_type              0
-Residence_type         0
-avg_glucose_level      0
-bmi                  201
-smoking_status         0
-stroke                 0
+id                   0
+gender               0
+age                  0
+hypertension         0
+heart_disease        0
+ever_married         0
+work_type            0
+Residence_type       0
+avg_glucose_level    0
+bmi                  0
+smoking_status       0
+stroke               0
+age_group            0
 dtype: int64
 
 Unique values for specified columns:
 
-smoking_status: ['formerly smoked' 'never smoked' 'smokes' 'Unknown']
-gender: ['Male' 'Female' 'Other']
-work_type: ['Private' 'Self-employed' 'Govt_job' 'children' 'Never_worked']
-Residence_type: ['Urban' 'Rural']
+smoking_status: ['formerly smoked' 'never smoked' 'smokes' 'unknown']
+gender: ['male' 'female' 'other']
+work_type: ['private' 'self-employed' 'govt_job' 'children' 'never_worked']
+Residence_type: ['urban' 'rural']
 
 
 Value counts for categorical columns:
 
 gender:
 gender
-Female    2994
-Male      2115
-Other        1
+female    2548
+male      1679
+other        1
 Name: count, dtype: int64
 
 ever_married:
 ever_married
-Yes    3353
-No     1757
+yes    3033
+no     1195
 Name: count, dtype: int64
 
 work_type:
 work_type
-Private          2925
-Self-employed     819
-children          687
-Govt_job          657
-Never_worked       22
+private          2673
+self-employed     722
+govt_job          604
+children          208
+never_worked       21
 Name: count, dtype: int64
 
 Residence_type:
 Residence_type
-Urban    2596
-Rural    2514
+urban    2141
+rural    2087
 Name: count, dtype: int64
 
 smoking_status:
 smoking_status
-never smoked       1892
-Unknown            1544
-formerly smoked     885
-smokes              789
+never smoked       1743
+unknown             986
+formerly smoked     794
+smokes              705
 Name: count, dtype: int64
 
 
 
 Correlation matrix for numerical columns:
 
-                         id       age  hypertension  heart_disease  avg_glucose_level       bmi    stroke
-id                 1.000000  0.003538      0.003550      -0.001296           0.001092  0.003084  0.006388
-age                0.003538  1.000000      0.276398       0.263796           0.238171  0.333398  0.245257
-hypertension       0.003550  0.276398      1.000000       0.108306           0.174474  0.167811  0.127904
-heart_disease     -0.001296  0.263796      0.108306       1.000000           0.161857  0.041357  0.134914
-avg_glucose_level  0.001092  0.238171      0.174474       0.161857           1.000000  0.175502  0.131945
-bmi                0.003084  0.333398      0.167811       0.041357           0.175502  1.000000  0.042374
-stroke             0.006388  0.245257      0.127904       0.134914           0.131945  0.042374  1.000000
+                         id       age  hypertension  heart_disease  avg_glucose_level       bmi    stroke  age_group
+id                 1.000000  0.001628     -0.002050      -0.002080           0.010133  0.009989  0.003266  -0.001571
+age                0.001628  1.000000      0.260156       0.259099           0.199089  0.175245  0.228058   0.989047
+hypertension      -0.002050  0.260156      1.000000       0.100275           0.158339  0.122512  0.125667   0.260809
+heart_disease     -0.002080  0.259099      0.100275       1.000000           0.150880  0.031047  0.123636   0.260939
+avg_glucose_level  0.010133  0.199089      0.158339       0.150880           1.000000  0.120642  0.117682   0.195797
+bmi                0.009989  0.175245      0.122512       0.031047           0.120642  1.000000  0.010313   0.171173
+stroke             0.003266  0.228058      0.125667       0.123636           0.117682  0.010313  1.000000   0.223221
+age_group         -0.001571  0.989047      0.260809       0.260939           0.195797  0.171173  0.223221   1.000000
+
+
+Individuals with all conditions:
+   id gender_hypertension  age_hypertension  hypertension_hypertension  heart_disease_hypertension ever_married_hypertension work_type_hypertension Residence_type_hypertension  avg_glucose_level_hypertension  bmi_hypertension smoking_status_hypertension  stroke_hypertension  age_group_hypertension gender_heart_disease  age_heart_disease  hypertension_heart_disease  heart_disease_heart_disease ever_married_heart_disease work_type_heart_disease Residence_type_heart_disease  avg_glucose_level_heart_disease  bmi_heart_disease smoking_status_heart_disease  stroke_heart_disease  age_group_heart_disease gender_high_glucose  age_high_glucose  hypertension_high_glucose  heart_disease_high_glucose ever_married_high_glucose work_type_high_glucose Residence_type_high_glucose  avg_glucose_level_high_glucose  bmi_high_glucose smoking_status_high_glucose  stroke_high_glucose  age_group_high_glucose gender_high_bmi  age_high_bmi  hypertension_high_bmi  heart_disease_high_bmi ever_married_high_bmi work_type_high_bmi Residence_type_high_bmi  avg_glucose_level_high_bmi  bmi_high_bmi smoking_status_high_bmi  stroke_high_bmi  age_group_high_bmi gender  age  hypertension  heart_disease ever_married work_type Residence_type  avg_glucose_level  bmi  smoking_status  stroke  age_group
+53401                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70                 male                 71                           1                            1                         no                govt_job                        rural                           216.94               30.9                 never smoked                     1                       70                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70            male            71                      1                       1                    no           govt_job                   rural                      216.94          30.9            never smoked                1                  70   male   71             1              1           no  govt_job          rural             216.94 30.9    never smoked       1         70
+68627                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80                 male                 80                           1                            1                        yes                 private                        urban                           175.29               31.5              formerly smoked                     1                       80                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80            male            80                      1                       1                   yes            private                   urban                      175.29          31.5         formerly smoked                1                  80   male   80             1              1          yes   private          urban             175.29 31.5 formerly smoked       1         80
+29552              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50               female                 55                           1                            1                        yes                 private                        urban                           210.40               40.0                       smokes                     1                       50              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50          female            55                      1                       1                   yes            private                   urban                      210.40          40.0                  smokes                1                  50 female   55             1              1          yes   private          urban             210.40 40.0          smokes       1         50
+
 

@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from data_explorer import DatasetExplorer  # Import the DatasetExplorer class
 
-def explore_dataset(input_path="dataset/healthcare_dataset.csv"):
+def explore_dataset(input_path="outputs/cleaned_dataset.csv"):
     """
     Main function to explore the dataset.
     """
@@ -37,8 +37,12 @@ def explore_dataset(input_path="dataset/healthcare_dataset.csv"):
         # Display correlation matrix for numerical columns
         explorer.display_correlation_matrix()
 
+        # Call the new method and pass the FilteringClass instance
+        explorer.filter_individuals_with_all_conditions()
+        
     except Exception as e:
         print(f"Error: {str(e)}")
+
 
 if __name__ == "__main__":
     print("The initial exploration is about to launch!!")
@@ -46,3 +50,4 @@ if __name__ == "__main__":
     with open(os.path.join("outputs", "exploration_output.txt"), 'w'):
         pass
     explore_dataset()
+
