@@ -126,7 +126,7 @@ class DatasetExplorer:
             print(individuals_with_all_conditions)
 
             # Save information to the text file
-            content = "Individuals with all conditions:"
+            content = "\nIndividuals with all conditions:\n"
             content += individuals_with_all_conditions.to_string(index=False) + "\n"
             self.save_to_file(content)
 

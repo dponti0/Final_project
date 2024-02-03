@@ -4,7 +4,7 @@
 # main_script.py
 import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
-from univariate_analysis import visualize_age_distribution, visualize_age_group_distribution, visualize_gender_distribution, visualize_hypertension_distribution, visualize_heart_disease_distribution, visualize_strokes_distribution, visualize_glucose_distribution, visualize_bmi_distribution, visualize_smoking_distribution, visualize_work_type_distribution, visualize_marital_status_distribution, visualize_residence_type_distribution
+from univariate_analysis import UnivariateVisualizer
 import os
 
 def main():
@@ -18,19 +18,22 @@ def main():
     pdf_path = "outputs/univariate_analysis.pdf"
     pdf_pages = pdf_backend.PdfPages(pdf_path)
 
-    # Llamar a funciones para visualizar y guardar los gráficos en la carpeta 'outputs'
-    visualize_age_distribution(data, "outputs/age_distribution_plot.png", pdf_pages)
-    visualize_age_group_distribution(data, "outputs/age_group_plot.png", pdf_pages)
-    visualize_gender_distribution(data, "outputs/gender_distribution_plot.png", pdf_pages)
-    visualize_hypertension_distribution(data, "outputs/hypertension_plot.png", pdf_pages)
-    visualize_heart_disease_distribution(data, "outputs/heartdisease_plot.png", pdf_pages)
-    visualize_strokes_distribution(data, "outputs/strokes_plot.png", pdf_pages)
-    visualize_glucose_distribution(data, "outputs/glucose_distribution_plot.png", pdf_pages)
-    visualize_bmi_distribution(data, "outputs/bmi_distribution_plot.png", pdf_pages)
-    visualize_smoking_distribution(data, "outputs/smoking_distribution_plot.png", pdf_pages)
-    visualize_work_type_distribution(data, "outputs/work_type_distribution_plot.png", pdf_pages)
-    visualize_marital_status_distribution(data, "outputs/marital_status_distribution_plot.png", pdf_pages)
-    visualize_residence_type_distribution(data, "outputs/residence_type_distribution_plot.png", pdf_pages)
+    # Crear una instancia de la clase UnivariateVisualizer
+    visualizer = UnivariateVisualizer(data, pdf_pages)
+
+    # Llamar a los métodos de visualización (univariate)
+    visualizer.visualize_age_distribution()
+    visualizer.visualize_age_group_distribution()
+    visualizer.visualize_gender_distribution()
+    visualizer.visualize_hypertension_distribution()
+    visualizer.visualize_heart_disease_distribution()
+    visualizer.visualize_strokes_distribution()
+    visualizer.visualize_glucose_distribution()
+    visualizer.visualize_bmi_distribution()
+    visualizer.visualize_smoking_distribution()
+    visualizer.visualize_work_type_distribution()
+    visualizer.visualize_marital_status_distribution()
+    visualizer.visualize_residence_type_distribution()
 
     # Cerrar el objeto PdfPages para finalizar el PDF
     pdf_pages.close()
