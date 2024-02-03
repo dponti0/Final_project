@@ -38,6 +38,7 @@ def visualize_hypertension_distribution(df, save_path, pdf_pages=None):
     plt.title("Hypertension Distribution")
     plt.xlabel("Hypertension")
     plt.ylabel("Number of People")
+    ax.set_xticklabels(["No", "Yes"])
 
     # Agrega el recuento en la leyenda
     counts = df["hypertension"].value_counts()
@@ -53,6 +54,7 @@ def visualize_heart_disease_distribution(df, save_path, pdf_pages=None):
     plt.title("Heart Disease Distribution")
     plt.xlabel("Heart Disease")
     plt.ylabel("Number of People")
+    ax.set_xticklabels(["No", "Yes"])
 
     # Agrega el recuento en la leyenda
     counts = df["heart_disease"].value_counts()
@@ -68,6 +70,7 @@ def visualize_strokes_distribution(df, save_path, pdf_pages=None):
     plt.title("Stroke Distribution")
     plt.xlabel("Stroke")
     plt.ylabel("Number of People")
+    ax.set_xticklabels(["No", "Yes"])
 
     # Agrega el recuento en la leyenda
     counts = df["stroke"].value_counts()

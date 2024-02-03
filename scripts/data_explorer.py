@@ -2,6 +2,7 @@
 
 import os
 import pandas as pd
+from filtering import FilteringClass
 
 class DatasetExplorer:
     """
@@ -93,3 +94,41 @@ class DatasetExplorer:
         content += str(correlation_matrix)
         self.save_to_file(content)
         print(content)
+
+    def filter_individuals_with_all_conditions(self):
+        """
+        Filter individuals with all specified conditions using the provided FilteringClass instance.
+        """
+        try:
+            
+            # Create an instance of the FilteringClass with your DataFrame
+            filter_instance = FilteringClass(self.df)
+
+            # Filtering the DataFrame
+            hypertension_data = filter_instance.filter_by_hypertension()
+            heartdis_data = filter_instance.filter_by_heart_disease()
+            high_glucose_data = filter_instance.filter_by_high_glucose(glucose_threshold=150)
+            high_bmi_data = filter_instance.filter_by_high_bmi(bmi_threshold=30)
+            strokes_data = filter_instance.filter_by_stroke()
+
+            # Encuentra los individuos que cumplen con todas las condiciones
+            individuals_with_all_conditions = (
+                hypertension_data
+                .merge(heartdis_data, how='inner', on='id', suffixes=('_hypertension', '_heart_disease'))
+                .merge(high_glucose_data, how='inner', on='id', suffixes=('_heart_disease', '_high_glucose'))
+                .merge(high_bmi_data, how='inner', on='id', suffixes=('_high_glucose', '_high_bmi'))
+                .merge(strokes_data, how='inner', on='id', suffixes=('_high_bmi', '_strokes'))
+            )
+
+            # Print information about individuals with all conditions
+            print()
+            print("Individuals with all conditions:")
+            print(individuals_with_all_conditions)
+
+            # Save information to the text file
+            content = "Individuals with all conditions:"
+            content += individuals_with_all_conditions.to_string(index=False) + "\n"
+            self.save_to_file(content)
+
+        except Exception as e:
+            print(f"Error filtering individuals with all conditions: {str(e)}")

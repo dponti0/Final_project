@@ -31,14 +31,14 @@ class FilteringClass:
         """
         Filtering individuals with high glucose levels
         """
-        
+        glucose_threshold=150
         return self.df[self.df['avg_glucose_level'] > glucose_threshold]
 
     def filter_by_high_bmi(self, bmi_threshold: float) -> pd.DataFrame:
         """
         Filtering individuals with high BMI
         """
-        
+        bmi_threshold=30
         return self.df[self.df['bmi'] > bmi_threshold]
 
     def filter_by_stroke(self) -> pd.DataFrame:

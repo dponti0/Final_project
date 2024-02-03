@@ -5,7 +5,6 @@
 import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import visualize_age_distribution, visualize_age_group_distribution, visualize_gender_distribution, visualize_hypertension_distribution, visualize_heart_disease_distribution, visualize_strokes_distribution, visualize_glucose_distribution, visualize_bmi_distribution, visualize_smoking_distribution, visualize_work_type_distribution, visualize_marital_status_distribution, visualize_residence_type_distribution
-from filtering import FilteringClass
 import os
 
 def main():
@@ -14,9 +13,6 @@ def main():
 
     # Crear la carpeta 'outputs' si no existe
     os.makedirs("outputs", exist_ok=True)
-
-    # Inicializar la clase de filtrado
-    filter_instance = FilteringClass(data)
 
     # Crear un objeto PdfPages para almacenar los gráficos en un solo PDF
     pdf_path = "outputs/univariate_analysis.pdf"
@@ -40,7 +36,7 @@ def main():
     pdf_pages.close()
 
     print()
-    print(f"El informe PDF se ha guardado en: {pdf_path}")
+    print(f"The PDF report including the univariate analysis has been saved at: {pdf_path}")
 
 if __name__ == "__main__":
     print("The main script is properly running!!")
