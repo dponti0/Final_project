@@ -57,6 +57,12 @@ def main_function(input, output):
         # Create a new column 'age_group' based on age grouping in 10s
         cleaning_instance.age_columns()
 
+        # Crear la columna 'age_cat'
+        bins = [0, 12, 18, 35, 60, float('inf')]
+        labels = ['Children', 'Teens', 'Adults', 'Mid Adults', 'Elderly']
+
+        cleaned_data['age_cat'] = pd.cut(cleaned_data['age'], bins=bins, labels=labels, right=False)
+
         # Print the shape of the cleaned dataset
         print("Cleaned dataset shape:", cleaned_data.shape)
 
