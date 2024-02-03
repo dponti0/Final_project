@@ -3,45 +3,52 @@
 
 # main_script.py
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
+import matplotlib.backends.backend_pdf as pdf_backend
+from univariate_analysis import visualize_age_distribution, visualize_gender_distribution, visualize_hypertension_distribution, visualize_heart_disease_distribution, visualize_strokes_distribution, visualize_glucose_distribution, visualize_bmi_distribution, visualize_smoking_distribution, visualize_work_type_distribution, visualize_marital_status_distribution, visualize_residence_type_distribution
 from filtering import FilteringClass
 import os
 
 def main():
-    # Cargar datos desde la carpeta 'outputs'
+    
     data = pd.read_csv("outputs/cleaned_dataset.csv")
 
-    # Crear la carpeta 'outputs' si no existe (corroborar que existe)
+    # Crear la carpeta 'outputs' si no existe
     os.makedirs("outputs", exist_ok=True)
 
     # Inicializar la clase de filtrado
     filter_instance = FilteringClass(data)
 
-    # Filtrar por hipertensión, enfermedad cardíaca, alto nivel de glucosa, alto BMI y accidente cerebrovascular
+    # Crear un objeto PdfPages para almacenar los gráficos en un solo PDF
+    pdf_path = "outputs/univariate_analysis.pdf"
+    pdf_pages = pdf_backend.PdfPages(pdf_path)
+
+    # Filtrar por hipertensión, enfermedad cardíaca y strokes
     hypertension_data = filter_instance.filter_by_hypertension()
     heartdis_data = filter_instance.filter_by_heart_disease()
-    glucose_data = filter_instance.filter_by_high_glucose()
-    bmi_data = filter_instance.filter_by_high_bmi()
     strokes_data = filter_instance.filter_by_stroke()
 
-    # Visualizar y guardar resultados para cada filtro
-    visualize_and_save(hypertension_data, "Hypertension", "outputs/hypertension_plot.png")
-    visualize_and_save(heartdis_data, "Heart Disease", "outputs/heart_disease_plot.png")
-    visualize_and_save(glucose_data, "High Glucose", "outputs/high_glucose_plot.png")
-    visualize_and_save(bmi_data, "High BMI", "outputs/high_bmi_plot.png")
-    visualize_and_save(strokes_data, "Stroke", "outputs/stroke_plot.png")
+    # Llamar a funciones para visualizar y guardar los gráficos en la carpeta 'outputs'
+    visualize_age_distribution(data, "outputs/age_distribution_plot.png", pdf_pages)
+    visualize_gender_distribution(data, "outputs/gender_distribution_plot.png", pdf_pages)
+    visualize_hypertension_distribution(hypertension_data, "outputs/hypertension_plot.png", pdf_pages)
+    visualize_heart_disease_distribution(heartdis_data, "outputs/heartdisease_plot.png", pdf_pages)
+    visualize_strokes_distribution(strokes_data, "outputs/strokes_plot.png", pdf_pages)
+    visualize_glucose_distribution(data, "outputs/glucose_distribution_plot.png", pdf_pages)
+    visualize_bmi_distribution(data, "outputs/bmi_distribution_plot.png", pdf_pages)
+    visualize_smoking_distribution(data, "outputs/smoking_distribution_plot.png", pdf_pages)
+    visualize_work_type_distribution(data, "outputs/work_type_distribution_plot.png", pdf_pages)
+    visualize_marital_status_distribution(data, "outputs/marital_status_distribution_plot.png", pdf_pages)
+    visualize_residence_type_distribution(data, "outputs/residence_type_distribution_plot.png", pdf_pages)
 
-def visualize_and_save(data, title, save_path):
-    # Código para visualizar resultados
-    plt.figure(figsize=(10, 6))
-    sns.countplot(x='alguna_columna', data=data)  # Ajusta la columna según tu conjunto de datos
-    plt.title(f"{title} Visualization")
-    plt.xlabel("X Label")
-    plt.ylabel("Y Label")
-    plt.savefig(save_path)  # Guardar el gráfico en la carpeta 'outputs'
-    plt.show()
+    # Cerrar el objeto PdfPages para finalizar el PDF
+    pdf_pages.close()
+
+    print()
+    print(f"El informe PDF se ha guardado en: {pdf_path}")
 
 if __name__ == "__main__":
     print("The main script is properly running!!")
     main()
+
+# python scripts/main_script.py
+    

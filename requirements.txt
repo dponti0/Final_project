@@ -11,3 +11,4 @@ seaborn == 0.13.1
 scikit-learn
 pyarrow 
 scipy==1.7.3
+reportlab
