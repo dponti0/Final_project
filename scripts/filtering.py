@@ -1,7 +1,8 @@
 """
-Script to filter the dataframe by desease
+Script to filter the dataframe by disease
 """
 
+# Import the required library
 import pandas as pd
 
 class FilteringClass:

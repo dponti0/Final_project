@@ -1,13 +1,20 @@
-# feature_engineering_script.py
+"""
+Script for feature engineering study using the clean dataset
+"""
 
+# Import the required libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 
+# Input, output and loading the dataset
 input_path = 'outputs/cleaned_dataset.csv'
 output_path = 'outputs/cleaned_dataset.csv'  # Overwrite the same file
 df = pd.read_csv(input_path)
 
 def determine_overall_health(row):
+    """
+    Function to establish the conditions of the new column
+    """
     if row['stroke'] == 1:
         return 'Very Bad'
     elif row['hypertension'] == 1 or row['heart_disease'] == 1 or row['bmi'] >= 30:
@@ -45,12 +52,13 @@ def determine_overall_health(row):
         return 'Very Good'
 
 def create_overall_health_column(df):
-    # Create a new column 'overall_health' based on the determine_overall_health function
+    """
+    Function to create a new column based on the previous function
+    """
     df['overall_health'] = df.apply(determine_overall_health, axis=1)
     return df
 
 if __name__ == '__main__':
-    # Print a message to indicate that the script is running
     print("The feature engineering script is properly running!!")
     print()
     
@@ -61,7 +69,7 @@ if __name__ == '__main__':
         # Save the dataset with the new column
         df.to_csv(output_path, index=False)
 
-        # Inform the user that the new column has been added and changes saved
+        # Ilustrate that the new column has been added and changes saved
         print("The 'overall_health' column has been added to the cleaned dataset.")
         print("Changes have been saved to:", output_path)
 

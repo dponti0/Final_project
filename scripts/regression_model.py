@@ -1,4 +1,8 @@
-# regression_model.py
+"""
+Script for predicting the risk of suffering a stroke (regression model)
+"""
+
+# Import the required libraries
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestRegressor
@@ -17,7 +21,7 @@ def train_regression_model(X, y):
     numerical_transformer = Pipeline(steps=[('scaler', StandardScaler())])
     categorical_transformer = Pipeline(steps=[('onehot', OneHotEncoder())])
 
-    # Combine transformers using ColumnTransformer
+    # Combine transformers 
     preprocessor = ColumnTransformer(
         transformers=[
             ('num', numerical_transformer, numerical_cols),
@@ -27,7 +31,7 @@ def train_regression_model(X, y):
     # Combine preprocessing with model in a pipeline
     model = Pipeline([
         ('preprocessor', preprocessor),
-        ('regression', RandomForestRegressor(n_estimators=100, random_state=42))  # You can adjust parameters
+        ('regression', RandomForestRegressor(n_estimators=100, random_state=42))  
     ])
 
     # Train the model
@@ -42,8 +46,9 @@ def evaluate_model(model, X_test, y_test):
     mse = mean_squared_error(y_test, y_pred)
     r2 = r2_score(y_test, y_pred)
 
-    rounded_mse = round(mse, 4)  # Round the MSE to 4 decimal places
-    rounded_r2 = round(r2, 4)  # Round the R-squared to 4 decimal places
+    # Round
+    rounded_mse = round(mse, 4)  
+    rounded_r2 = round(r2, 4)  
 
     # Save the results to a text file
     with open('outputs/stroke_prediction.txt', 'w') as file:

@@ -1,3 +1,8 @@
+"""
+Script for cleaning the data of the original healthcare dataset (using click)
+"""
+
+# Import the required libraries
 import os
 import pandas as pd
 import click
@@ -13,7 +18,7 @@ def load_dataset(filename):
         raise TypeError(f"The extension is {extension} and not 'csv'.")
     return pd.read_csv(filename)
 
-# Click command
+# Click commands
 @click.command(short_help="Clean and filter dataset")
 @click.option(
     "-i",
@@ -98,5 +103,4 @@ def main_function(input, output):
 if __name__ == "__main__":
     print("The code is properly working!")
     main_function()
-
-# python scripts/data_cleaning.py -i dataset/healthcare_dataset.csv -o outputs/cleaned_dataset.csv
+    

@@ -1,9 +1,16 @@
-# univariate_analysis.py
+"""
+Script for carrying out the univariate analysis
+"""
+
+# Import the required libraries
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 class UnivariateVisualizer:
+    """
+    Class that includes all the functions of the univariate analysis
+    """
     def __init__(self, df, pdf_pages=None):
         self.df = df
         self.pdf_pages = pdf_pages

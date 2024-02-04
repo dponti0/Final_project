@@ -1,3 +1,8 @@
+"""
+Script for the CleaningClass
+"""
+
+# Import the required libraries
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
@@ -16,7 +21,7 @@ class DataCleaningClass:
         """
         Remove outliers from specified columns using Isolation Forest
         """
-        # Handle missing values (drop rows with missing values for simplicity, adjust as needed)
+        # Handle missing values (drop rows with missing values)
         self.df = self.df.dropna(subset=columns)
 
         clf = IsolationForest(contamination=0.05)

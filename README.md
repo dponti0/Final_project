@@ -18,3 +18,5 @@ used black, flake8 & pylint
 
 el df tiene irregularidad de mayúsculas y minúsculas, por tanto en el script de data cleaning se ponen todas 
 minúsculas
+
+# python scripts/data_cleaning.py -i dataset/healthcare_dataset.csv -o outputs/cleaned_dataset.csv

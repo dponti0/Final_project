@@ -1,13 +1,13 @@
+"""
+The main script, used for elaborating the entire study by mainly calling other functions
+and grouping them all in one same script
+"""
 
-# The main script will call the plotting script (branch!) + predective modeling
-
-# main_script.py
+# Import the required libraries
 import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
-from feature_engineering import create_overall_health_column
-from marriage_study import perform_hypothesis_testing
 import os
 import subprocess
 
@@ -18,7 +18,7 @@ univariate_pdf_path = "outputs/univariate_analysis.pdf"
 multivariate_pdf_path = "outputs/multivariate_analysis.pdf"
 feature_engineering_script_path = 'scripts/feature_engineering.py'
 regression_model_path = "scripts/regression_model.py"
-other_studies_path = "scripts/other_studies.py"
+marriage_study_path = "scripts/marriage_study.py"
 
 def run_feature_engineering_script():
     try:
@@ -32,9 +32,9 @@ def run_regression_model_script():
     except Exception as e:
         print(f"Error while running the regression model script: {e}")
 
-def run_other_studies_script():
+def run_marriage_study_script():
     try:
-        subprocess.run(['python', other_studies_path])
+        subprocess.run(['python', marriage_study_path])
     except Exception as e:
         print(f"Error while running the hypothesis testing script: {e}")
 
@@ -74,6 +74,9 @@ def visualize_multivariate_relationships(bi_visualizer):
         bi_visualizer.correlation_heatmap()
 
 def main():    
+    print("\nThe main script is properly running!!")
+    print()
+    
     # Read cleaned dataset
     data = pd.read_csv(cleaned_dataset_path)
     
@@ -87,7 +90,7 @@ def main():
     run_regression_model_script()
 
     # Run feature engineering script
-    run_other_studies_script()
+    run_marriage_study_script()
 
     # Create PdfPages objects to store the plots in a single PDF
     uni_pdf_path = "outputs/univariate_analysis.pdf"
@@ -113,6 +116,4 @@ def main():
     print(f"The PDF report including multivariate analysis has been saved at: {bi_pdf_path}")
 
 if __name__ == "__main__":
-    print("The main script is properly running!!")
-    print()
     main()

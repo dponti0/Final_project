@@ -1,5 +1,8 @@
-# data_explorer.py
+"""
+Script to create a class for the initial data exploration
+"""
 
+# Import the required libraries
 import os
 from filtering import FilteringClass
 
@@ -100,7 +103,7 @@ class DatasetExplorer:
         """
         try:
             
-            # Create an instance of the FilteringClass with your DataFrame
+            # Create an instance of the FilteringClass
             filter_instance = FilteringClass(self.df)
 
             # Filtering the DataFrame
@@ -110,7 +113,7 @@ class DatasetExplorer:
             high_bmi_data = filter_instance.filter_by_high_bmi(bmi_threshold=30)
             strokes_data = filter_instance.filter_by_stroke()
 
-            # Encuentra los individuos que cumplen con todas las condiciones
+            # Find those individuals with all conditions
             individuals_with_all_conditions = (
                 hypertension_data
                 .merge(heartdis_data, how='inner', on='id', suffixes=('_hypertension', '_heart_disease'))
@@ -119,12 +122,12 @@ class DatasetExplorer:
                 .merge(strokes_data, how='inner', on='id', suffixes=('_high_bmi', '_strokes'))
             )
 
-            # Print information about individuals with all conditions
+            # Print the information
             print()
             print("Individuals with all conditions:")
             print(individuals_with_all_conditions)
 
-            # Save information to the text file
+            # Save the information as a text file in the outputs folder
             content = "\nIndividuals with all conditions:\n"
             content += individuals_with_all_conditions.to_string(index=False) + "\n"
             self.save_to_file(content)
