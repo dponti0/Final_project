@@ -406,7 +406,7 @@ class MultivariateVisualizer:
         sns.despine(trim=True, left=True)
 
         # Add legend with labels and adjust size
-        labels = {0: "Not Married", 1: "Married"}
+        labels = {0: "Married", 1: "Not Married"}
         legend_labels = [
             plt.Line2D(
                 [0],
