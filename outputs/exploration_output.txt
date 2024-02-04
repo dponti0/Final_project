@@ -4,26 +4,26 @@ None
 
 Displaying the first 5 rows of the dataset:
 
-      id  gender  age  hypertension  heart_disease  ...   bmi   smoking_status stroke  age_group     age_cat
-0   9046    male   67             0              1  ...  36.6  formerly smoked      1         60     Elderly
-1  31112    male   80             0              1  ...  32.5     never smoked      1         80     Elderly
-2  60182  female   49             0              0  ...  34.4           smokes      1         40  Mid Adults
-3   1665  female   79             1              0  ...  24.0     never smoked      1         70     Elderly
-4  56669    male   81             0              0  ...  29.0  formerly smoked      1         80     Elderly
+      id  gender  age  hypertension  heart_disease  ...   smoking_status stroke age_group     age_cat  overall_health
+0   9046    male   67             0              1  ...  formerly smoked      1        60     Elderly        Very Bad
+1  31112    male   80             0              1  ...     never smoked      1        80     Elderly        Very Bad
+2  60182  female   49             0              0  ...           smokes      1        40  Mid Adults        Very Bad
+3   1665  female   79             1              0  ...     never smoked      1        70     Elderly        Very Bad
+4  56669    male   81             0              0  ...  formerly smoked      1        80     Elderly        Very Bad
 
-[5 rows x 14 columns]
+[5 rows x 15 columns]
 
 Descriptive statistics of the numerical columns:
 
                  id          age  hypertension  heart_disease  avg_glucose_level          bmi       stroke    age_group
-count   4234.000000  4234.000000   4234.000000    4234.000000         4234.00000  4234.000000  4234.000000  4234.000000
-mean   37167.765470    46.304440      0.094709       0.051724          101.64918    29.474634     0.043930    41.908361
-std    20965.410871    19.584634      0.292848       0.221496           39.30237     6.659052     0.204964    19.660360
-min       77.000000    10.000000      0.000000       0.000000           55.12000    11.300000     0.000000    10.000000
-25%    18841.250000    31.000000      0.000000       0.000000           76.56250    24.700000     0.000000    30.000000
-50%    37657.500000    47.000000      0.000000       0.000000           90.59000    28.600000     0.000000    40.000000
-75%    55342.000000    61.000000      0.000000       0.000000          111.23500    33.200000     0.000000    60.000000
-max    72918.000000    82.000000      1.000000       1.000000          248.37000    59.700000     1.000000    80.000000
+count   4221.000000  4221.000000   4221.000000    4221.000000        4221.000000  4221.000000  4221.000000  4221.000000
+mean   37233.394693    46.345653      0.094527       0.052120         101.884776    29.349420     0.043118    41.947406
+std    20915.695147    19.622725      0.292596       0.222296          39.594407     6.397485     0.203146    19.701519
+min       77.000000    10.000000      0.000000       0.000000          55.120000    11.300000     0.000000    10.000000
+25%    18943.000000    31.000000      0.000000       0.000000          76.550000    24.700000     0.000000    30.000000
+50%    37752.000000    47.000000      0.000000       0.000000          90.690000    28.600000     0.000000    40.000000
+75%    55315.000000    61.000000      0.000000       0.000000         111.480000    33.200000     0.000000    60.000000
+max    72918.000000    82.000000      1.000000       1.000000         240.860000    51.500000     1.000000    80.000000
 
 Sum of missing values for each column:
 
@@ -41,6 +41,7 @@ smoking_status       0
 stroke               0
 age_group            0
 age_cat              0
+overall_health       0
 dtype: int64
 
 Unique values for specified columns:
@@ -55,47 +56,56 @@ Value counts for categorical columns:
 
 gender:
 gender
-female    2551
-male      1682
+female    2542
+male      1678
 other        1
 Name: count, dtype: int64
 
 ever_married:
 ever_married
-yes    3028
-no     1206
+yes    3022
+no     1199
 Name: count, dtype: int64
 
 work_type:
 work_type
-private          2687
-self-employed     717
-govt_job          601
-children          208
+private          2670
+self-employed     718
+govt_job          603
+children          209
 never_worked       21
 Name: count, dtype: int64
 
 Residence_type:
 Residence_type
-urban    2149
+urban    2136
 rural    2085
 Name: count, dtype: int64
 
 smoking_status:
 smoking_status
-never smoked       1745
-unknown             993
-formerly smoked     793
-smokes              703
+never smoked       1739
+unknown             989
+formerly smoked     789
+smokes              704
 Name: count, dtype: int64
 
 age_cat:
 age_cat
-Mid Adults    1756
+Mid Adults    1750
 Elderly       1176
-Adults         939
-Teens          293
+Adults         930
+Teens          295
 Children        70
+Name: count, dtype: int64
+
+overall_health:
+overall_health
+Bad          2063
+Regular       810
+Very Good     746
+Good          420
+Very Bad      182
 Name: count, dtype: int64
 
 
@@ -103,20 +113,20 @@ Name: count, dtype: int64
 Correlation matrix for numerical columns:
 
                          id       age  hypertension  heart_disease  avg_glucose_level       bmi    stroke  age_group
-id                 1.000000 -0.001089      0.000374      -0.000482           0.012760 -0.000932  0.001211  -0.004211
-age               -0.001089  1.000000      0.257765       0.259298           0.194017  0.157759  0.228543   0.988982
-hypertension       0.000374  0.257765      1.000000       0.095635           0.155300  0.118753  0.127457   0.259104
-heart_disease     -0.000482  0.259298      0.095635       1.000000           0.141006  0.029159  0.121658   0.261594
-avg_glucose_level  0.012760  0.194017      0.155300       0.141006           1.000000  0.107774  0.116431   0.191271
-bmi               -0.000932  0.157759      0.118753       0.029159           0.107774  1.000000  0.006061   0.154130
-stroke             0.001211  0.228543      0.127457       0.121658           0.116431  0.006061  1.000000   0.223657
-age_group         -0.004211  0.988982      0.259104       0.261594           0.191271  0.154130  0.223657   1.000000
+id                 1.000000 -0.001536     -0.003781      -0.002932           0.007211  0.011765  0.000504  -0.004768
+age               -0.001536  1.000000      0.260433       0.259180           0.185320  0.174172  0.223937   0.989020
+hypertension      -0.003781  0.260433      1.000000       0.099111           0.156189  0.123224  0.122774   0.261566
+heart_disease     -0.002932  0.259180      0.099111       1.000000           0.145743  0.033680  0.118141   0.261964
+avg_glucose_level  0.007211  0.185320      0.156189       0.145743           1.000000  0.137868  0.101387   0.182470
+bmi                0.011765  0.174172      0.123224       0.033680           0.137868  1.000000  0.012692   0.170057
+stroke             0.000504  0.223937      0.122774       0.118141           0.101387  0.012692  1.000000   0.218807
+age_group         -0.004768  0.989020      0.261566       0.261964           0.182470  0.170057  0.218807   1.000000
 
 
 Individuals with all conditions:
-   id gender_hypertension  age_hypertension  hypertension_hypertension  heart_disease_hypertension ever_married_hypertension work_type_hypertension Residence_type_hypertension  avg_glucose_level_hypertension  bmi_hypertension smoking_status_hypertension  stroke_hypertension  age_group_hypertension age_cat_hypertension gender_heart_disease  age_heart_disease  hypertension_heart_disease  heart_disease_heart_disease ever_married_heart_disease work_type_heart_disease Residence_type_heart_disease  avg_glucose_level_heart_disease  bmi_heart_disease smoking_status_heart_disease  stroke_heart_disease  age_group_heart_disease age_cat_heart_disease gender_high_glucose  age_high_glucose  hypertension_high_glucose  heart_disease_high_glucose ever_married_high_glucose work_type_high_glucose Residence_type_high_glucose  avg_glucose_level_high_glucose  bmi_high_glucose smoking_status_high_glucose  stroke_high_glucose  age_group_high_glucose age_cat_high_glucose gender_high_bmi  age_high_bmi  hypertension_high_bmi  heart_disease_high_bmi ever_married_high_bmi work_type_high_bmi Residence_type_high_bmi  avg_glucose_level_high_bmi  bmi_high_bmi smoking_status_high_bmi  stroke_high_bmi  age_group_high_bmi age_cat_high_bmi gender  age  hypertension  heart_disease ever_married work_type Residence_type  avg_glucose_level  bmi  smoking_status  stroke  age_group    age_cat
-53401                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70              Elderly                 male                 71                           1                            1                         no                govt_job                        rural                           216.94               30.9                 never smoked                     1                       70               Elderly                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70              Elderly            male            71                      1                       1                    no           govt_job                   rural                      216.94          30.9            never smoked                1                  70          Elderly   male   71             1              1           no  govt_job          rural             216.94 30.9    never smoked       1         70    Elderly
-68627                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80              Elderly                 male                 80                           1                            1                        yes                 private                        urban                           175.29               31.5              formerly smoked                     1                       80               Elderly                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80              Elderly            male            80                      1                       1                   yes            private                   urban                      175.29          31.5         formerly smoked                1                  80          Elderly   male   80             1              1          yes   private          urban             175.29 31.5 formerly smoked       1         80    Elderly
-29552              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50           Mid Adults               female                 55                           1                            1                        yes                 private                        urban                           210.40               40.0                       smokes                     1                       50            Mid Adults              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50           Mid Adults          female            55                      1                       1                   yes            private                   urban                      210.40          40.0                  smokes                1                  50       Mid Adults female   55             1              1          yes   private          urban             210.40 40.0          smokes       1         50 Mid Adults
+   id gender_hypertension  age_hypertension  hypertension_hypertension  heart_disease_hypertension ever_married_hypertension work_type_hypertension Residence_type_hypertension  avg_glucose_level_hypertension  bmi_hypertension smoking_status_hypertension  stroke_hypertension  age_group_hypertension age_cat_hypertension overall_health_hypertension gender_heart_disease  age_heart_disease  hypertension_heart_disease  heart_disease_heart_disease ever_married_heart_disease work_type_heart_disease Residence_type_heart_disease  avg_glucose_level_heart_disease  bmi_heart_disease smoking_status_heart_disease  stroke_heart_disease  age_group_heart_disease age_cat_heart_disease overall_health_heart_disease gender_high_glucose  age_high_glucose  hypertension_high_glucose  heart_disease_high_glucose ever_married_high_glucose work_type_high_glucose Residence_type_high_glucose  avg_glucose_level_high_glucose  bmi_high_glucose smoking_status_high_glucose  stroke_high_glucose  age_group_high_glucose age_cat_high_glucose overall_health_high_glucose gender_high_bmi  age_high_bmi  hypertension_high_bmi  heart_disease_high_bmi ever_married_high_bmi work_type_high_bmi Residence_type_high_bmi  avg_glucose_level_high_bmi  bmi_high_bmi smoking_status_high_bmi  stroke_high_bmi  age_group_high_bmi age_cat_high_bmi overall_health_high_bmi gender  age  hypertension  heart_disease ever_married work_type Residence_type  avg_glucose_level  bmi  smoking_status  stroke  age_group    age_cat overall_health
+53401                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70              Elderly                    Very Bad                 male                 71                           1                            1                         no                govt_job                        rural                           216.94               30.9                 never smoked                     1                       70               Elderly                     Very Bad                male                71                          1                           1                        no               govt_job                       rural                          216.94              30.9                never smoked                    1                      70              Elderly                    Very Bad            male            71                      1                       1                    no           govt_job                   rural                      216.94          30.9            never smoked                1                  70          Elderly                Very Bad   male   71             1              1           no  govt_job          rural             216.94 30.9    never smoked       1         70    Elderly       Very Bad
+68627                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80              Elderly                    Very Bad                 male                 80                           1                            1                        yes                 private                        urban                           175.29               31.5              formerly smoked                     1                       80               Elderly                     Very Bad                male                80                          1                           1                       yes                private                       urban                          175.29              31.5             formerly smoked                    1                      80              Elderly                    Very Bad            male            80                      1                       1                   yes            private                   urban                      175.29          31.5         formerly smoked                1                  80          Elderly                Very Bad   male   80             1              1          yes   private          urban             175.29 31.5 formerly smoked       1         80    Elderly       Very Bad
+29552              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50           Mid Adults                    Very Bad               female                 55                           1                            1                        yes                 private                        urban                           210.40               40.0                       smokes                     1                       50            Mid Adults                     Very Bad              female                55                          1                           1                       yes                private                       urban                          210.40              40.0                      smokes                    1                      50           Mid Adults                    Very Bad          female            55                      1                       1                   yes            private                   urban                      210.40          40.0                  smokes                1                  50       Mid Adults                Very Bad female   55             1              1          yes   private          urban             210.40 40.0          smokes       1         50 Mid Adults       Very Bad
 
 

@@ -143,10 +143,16 @@ class DatasetExplorer:
                 )
             )
 
-            # Print the information
+            # Print only specific columns of individuals_with_all_conditions
             print()
             print("Individuals with all conditions:")
-            print(individuals_with_all_conditions)
+            selected_columns = [
+                'id', 'gender', 'age', 'hypertension', 'heart_disease', 
+                'ever_married', 'work_type', 'Residence_type', 'avg_glucose_level', 
+                'bmi', 'smoking_status', 'stroke', 'age_group', 'age_cat'
+            ]
+            print(individuals_with_all_conditions[selected_columns])
+
 
             # Save the information as a text file in the outputs folder
             content = "\nIndividuals with all conditions:\n"
