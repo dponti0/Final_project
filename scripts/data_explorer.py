@@ -1,7 +1,6 @@
-# dataset_explorer.py
+# data_explorer.py
 
 import os
-import pandas as pd
 from filtering import FilteringClass
 
 class DatasetExplorer:
