@@ -13,3 +13,4 @@ pyarrow
 scipy
 reportlab
 mplot3d-dragger
+reportlab

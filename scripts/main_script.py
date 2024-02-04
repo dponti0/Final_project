@@ -7,7 +7,7 @@ import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
 from feature_engineering import create_overall_health_column
-from other_studies import perform_hypothesis_testing
+from marriage_study import perform_hypothesis_testing
 import os
 import subprocess
 
@@ -18,6 +18,7 @@ univariate_pdf_path = "outputs/univariate_analysis.pdf"
 multivariate_pdf_path = "outputs/multivariate_analysis.pdf"
 feature_engineering_script_path = 'scripts/feature_engineering.py'
 regression_model_path = "scripts/regression_model.py"
+other_studies_path = "scripts/other_studies.py"
 
 def run_feature_engineering_script():
     try:
@@ -30,6 +31,12 @@ def run_regression_model_script():
         subprocess.run(['python', regression_model_path])
     except Exception as e:
         print(f"Error while running the regression model script: {e}")
+
+def run_other_studies_script():
+    try:
+        subprocess.run(['python', other_studies_path])
+    except Exception as e:
+        print(f"Error while running the hypothesis testing script: {e}")
 
 def visualize_univariate_relationships(uni_visualizer):
         """
@@ -69,15 +76,18 @@ def visualize_multivariate_relationships(bi_visualizer):
 def main():    
     # Read cleaned dataset
     data = pd.read_csv(cleaned_dataset_path)
+    
+    # Create the 'outputs' folder if it does not exist
+    os.makedirs("outputs", exist_ok=True)
         
     # Run feature engineering script
     run_feature_engineering_script()
 
     # Run feature engineering script
     run_regression_model_script()
-    
-    # Create the 'outputs' folder if it does not exist
-    os.makedirs("outputs", exist_ok=True)
+
+    # Run feature engineering script
+    run_other_studies_script()
 
     # Create PdfPages objects to store the plots in a single PDF
     uni_pdf_path = "outputs/univariate_analysis.pdf"

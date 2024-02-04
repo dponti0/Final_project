@@ -1,2 +1,0 @@
-Mean Squared Error on Test Set: 0.0
-R-squared on Test Set: 1.0
