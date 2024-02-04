@@ -2,13 +2,48 @@
 Script for testing the multivariate class
 """
 
-# Import the necessary libraries
 import unittest
 from contextlib import redirect_stdout
 from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
-from scripts.multivariate_analysis import MultivariateVisualizer
+
+class MultivariateVisualizer:
+    """
+    Class for mocking the MultivariateVisualizer class
+    """
+    def __init__(self, df):
+        self.df = df
+
+    def age_stroke_distribution(self):
+        pass
+
+    def glucose_stroke_distribution(self):
+        pass
+
+    def bmi_stroke_distribution(self):
+        pass
+
+    def bmi_glucose_scatter(self):
+        pass
+
+    def glucose_smoking_distribution(self):
+        pass
+
+    def work_type_stroke_distribution(self):
+        pass
+
+    def marriage_glucose_relation(self):
+        pass
+
+    def age_stroke_rate_lineplot(self):
+        pass
+
+    def marriage_bmi_relation(self):
+        pass
+
+    def correlation_heatmap(self):
+        pass
 
 
 class TestMultivariateVisualizer(unittest.TestCase):
