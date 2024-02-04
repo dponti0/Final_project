@@ -16,12 +16,19 @@ cleaned_dataset_path = "outputs/cleaned_dataset.csv"
 univariate_pdf_path = "outputs/univariate_analysis.pdf"
 multivariate_pdf_path = "outputs/multivariate_analysis.pdf"
 feature_engineering_script_path = 'scripts/feature_engineering.py'
+regression_model_path = "scripts/regression_model.py"
 
 def run_feature_engineering_script():
     try:
         subprocess.run(['python', feature_engineering_script_path])
     except Exception as e:
         print(f"Error while running the feature engineering script: {e}")
+
+def run_regression_model_script():
+    try:
+        subprocess.run(['python', regression_model_path])
+    except Exception as e:
+        print(f"Error while running the regression model script: {e}")
 
 def visualize_univariate_relationships(uni_visualizer):
         """
@@ -58,15 +65,15 @@ def visualize_multivariate_relationships(bi_visualizer):
         bi_visualizer.correlation_heatmap()
         bi_visualizer.overall_health_pie_chart()
 
-def main():
-    # Run feature engineering script
-    run_feature_engineering_script()
-    
+def main():    
     # Read cleaned dataset
     data = pd.read_csv(cleaned_dataset_path)
+        
+    # Run feature engineering script
+    run_feature_engineering_script()
 
-    # Create 'overall_health' column
-    data = create_overall_health_column(data)
+    # Run feature engineering script
+    run_regression_model_script()
     
     # Create the 'outputs' folder if it does not exist
     os.makedirs("outputs", exist_ok=True)

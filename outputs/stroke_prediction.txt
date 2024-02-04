@@ -1,0 +1,4 @@
+Study: Predicting Stroke Risk using a Regression Model
+
+Mean Squared Error on Test Set: 0.0
+R-squared on Test Set: 1.0
