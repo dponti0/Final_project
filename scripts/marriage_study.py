@@ -11,11 +11,12 @@ from scipy.stats import chi2_contingency
 from matplotlib.backends.backend_pdf import PdfPages
 import os
 
+
 def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
     """
     Function to perform the chi2 test and conduct the study
     """
-    
+
     print("\nThe marriage study is working correctly!!\n")
 
     df = pd.read_csv(dataset_path)
@@ -25,7 +26,9 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
     selected_data = df[columns_of_interest]
 
     # Contingency table
-    contingency_table = pd.crosstab(selected_data["ever_married"], selected_data["heart_disease"])
+    contingency_table = pd.crosstab(
+        selected_data["ever_married"], selected_data["heart_disease"]
+    )
 
     # Chi-square test
     chi2, p, _, _ = chi2_contingency(contingency_table)
@@ -45,18 +48,32 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
 
     # Save the plot and the comments in the same PDF file
     with PdfPages(output_path) as pdf:
-
         plt.figure(figsize=(10, 6))
 
         # Shades of blue for the bars
         colors = sns.color_palette("Blues", n_colors=len(contingency_table.columns))
 
         # Access columns using the unique values as labels
-        sns.barplot(x=contingency_table.index, y=contingency_table[contingency_table.columns[1]], label="With disease", color=colors[0], edgecolor='black')
-        sns.barplot(x=contingency_table.index, y=contingency_table[contingency_table.columns[0]], bottom=contingency_table[contingency_table.columns[1]], label="Without disease", color=colors[-1], edgecolor='black')
+        sns.barplot(
+            x=contingency_table.index,
+            y=contingency_table[contingency_table.columns[1]],
+            label="With disease",
+            color=colors[0],
+            edgecolor="black",
+        )
+        sns.barplot(
+            x=contingency_table.index,
+            y=contingency_table[contingency_table.columns[0]],
+            bottom=contingency_table[contingency_table.columns[1]],
+            label="Without disease",
+            color=colors[-1],
+            edgecolor="black",
+        )
 
         # Labels and legend
-        plt.title("Relationship between Marital Status and Heart Diseases", fontweight='bold')
+        plt.title(
+            "Relationship between Marital Status and Heart Diseases", fontweight="bold"
+        )
         plt.xlabel("Marital Status", fontstyle="italic")
         plt.ylabel("Number of People", fontstyle="italic")
         plt.legend(title="Disease")
@@ -74,11 +91,51 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
         )
 
         # Add text to the plot & close
-        plt.text(0.5, -0.15, hypothesis_text, color='black', horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
-        plt.text(0.5, -0.25, f"Chi2 Value: {chi2_rounded}", color='black', horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
-        plt.text(0.5, -0.3, f"P-value: {p_rounded}", color='black', horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
-        plt.text(0.5, -0.2, conclusion_text, color='black', horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
-        plt.text(0.5, -0.35, interpretation_text, color='black', horizontalalignment='center', verticalalignment='center', transform=plt.gca().transAxes)
+        plt.text(
+            0.5,
+            -0.15,
+            hypothesis_text,
+            color="black",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=plt.gca().transAxes,
+        )
+        plt.text(
+            0.5,
+            -0.25,
+            f"Chi2 Value: {chi2_rounded}",
+            color="black",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=plt.gca().transAxes,
+        )
+        plt.text(
+            0.5,
+            -0.3,
+            f"P-value: {p_rounded}",
+            color="black",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=plt.gca().transAxes,
+        )
+        plt.text(
+            0.5,
+            -0.2,
+            conclusion_text,
+            color="black",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=plt.gca().transAxes,
+        )
+        plt.text(
+            0.5,
+            -0.35,
+            interpretation_text,
+            color="black",
+            horizontalalignment="center",
+            verticalalignment="center",
+            transform=plt.gca().transAxes,
+        )
 
         pdf.savefig(bbox_inches="tight")
         plt.close()
@@ -88,7 +145,7 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
     print("Chi2_value:", chi2_rounded)
     print("P_value:", p_rounded)
     print("Hypothesis result:", hypothesis_result)
-    
+
     # Print the interpretation & the output path
     print("\n" + "=" * 50)
     print(interpretation_text[16:])
@@ -97,7 +154,7 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
 
     print(f"\nThe file was correctly saved as: {output_path}\n")
 
+
 dataset_path = "outputs/cleaned_dataset.csv"
 output_path = "outputs/marriage_study.pdf"
 perform_hypothesis_testing(dataset_path, output_path, save_plot=True)
-

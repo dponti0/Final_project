@@ -6,6 +6,7 @@ Script to create a class for the initial data exploration
 import os
 from filtering import FilteringClass
 
+
 class DatasetExplorer:
     """
     A class for exploring and analyzing datasets.
@@ -17,13 +18,13 @@ class DatasetExplorer:
         """
         self.df = df
         self.output_file = os.path.join("outputs", "exploration_output.txt")
-        print()  
+        print()
 
     def save_to_file(self, content):
         """
         Save content to a text file.
         """
-        with open(self.output_file, 'a') as file:
+        with open(self.output_file, "a") as file:
             file.write(content + "\n\n")
 
     def display_info(self):
@@ -49,7 +50,7 @@ class DatasetExplorer:
         Display descriptive statistics of numerical columns in the dataset.
         """
         content = "Descriptive statistics of the numerical columns:\n\n"
-        num_col = self.df.select_dtypes(include=['number']).columns
+        num_col = self.df.select_dtypes(include=["number"]).columns
         content += str(self.df[num_col].describe())
         self.save_to_file(content)
         print(content)
@@ -79,7 +80,7 @@ class DatasetExplorer:
         Display value counts for categorical columns in the dataset.
         """
         content = "Value counts for categorical columns:\n\n"
-        cat_columns = self.df.select_dtypes(include=['object']).columns
+        cat_columns = self.df.select_dtypes(include=["object"]).columns
         for column in cat_columns:
             value_counts = self.df[column].value_counts()
             content += f"{column}:\n{value_counts}\n\n"
@@ -91,7 +92,7 @@ class DatasetExplorer:
         Display the correlation matrix for numerical columns in the dataset.
         """
         content = "Correlation matrix for numerical columns:\n\n"
-        num_col = self.df.select_dtypes(include=['number']).columns
+        num_col = self.df.select_dtypes(include=["number"]).columns
         correlation_matrix = self.df[num_col].corr()
         content += str(correlation_matrix)
         self.save_to_file(content)
@@ -102,24 +103,44 @@ class DatasetExplorer:
         Filter individuals with all specified conditions using the provided FilteringClass instance.
         """
         try:
-            
             # Create an instance of the FilteringClass
             filter_instance = FilteringClass(self.df)
 
             # Filtering the DataFrame
             hypertension_data = filter_instance.filter_by_hypertension()
             heartdis_data = filter_instance.filter_by_heart_disease()
-            high_glucose_data = filter_instance.filter_by_high_glucose(glucose_threshold=150)
+            high_glucose_data = filter_instance.filter_by_high_glucose(
+                glucose_threshold=150
+            )
             high_bmi_data = filter_instance.filter_by_high_bmi(bmi_threshold=30)
             strokes_data = filter_instance.filter_by_stroke()
 
             # Find those individuals with all conditions
             individuals_with_all_conditions = (
-                hypertension_data
-                .merge(heartdis_data, how='inner', on='id', suffixes=('_hypertension', '_heart_disease'))
-                .merge(high_glucose_data, how='inner', on='id', suffixes=('_heart_disease', '_high_glucose'))
-                .merge(high_bmi_data, how='inner', on='id', suffixes=('_high_glucose', '_high_bmi'))
-                .merge(strokes_data, how='inner', on='id', suffixes=('_high_bmi', '_strokes'))
+                hypertension_data.merge(
+                    heartdis_data,
+                    how="inner",
+                    on="id",
+                    suffixes=("_hypertension", "_heart_disease"),
+                )
+                .merge(
+                    high_glucose_data,
+                    how="inner",
+                    on="id",
+                    suffixes=("_heart_disease", "_high_glucose"),
+                )
+                .merge(
+                    high_bmi_data,
+                    how="inner",
+                    on="id",
+                    suffixes=("_high_glucose", "_high_bmi"),
+                )
+                .merge(
+                    strokes_data,
+                    how="inner",
+                    on="id",
+                    suffixes=("_high_bmi", "_strokes"),
+                )
             )
 
             # Print the information

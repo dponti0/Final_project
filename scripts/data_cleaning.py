@@ -6,7 +6,7 @@ Script for cleaning the data of the original healthcare dataset (using click)
 import os
 import pandas as pd
 import click
-from cleaning_class import DataCleaningClass  
+from cleaning_class import DataCleaningClass
 
 
 def load_dataset(filename):
@@ -17,6 +17,7 @@ def load_dataset(filename):
     if extension.lower() != "csv":
         raise TypeError(f"The extension is {extension} and not 'csv'.")
     return pd.read_csv(filename)
+
 
 # Click commands
 @click.command(short_help="Clean and filter dataset")
@@ -37,7 +38,7 @@ def main_function(input, output):
     """
     Main function to clean & filter the dataset
     """
-    try:        
+    try:
         health_data = load_dataset(input)
 
         # Print the shape of the original dataset
@@ -64,12 +65,14 @@ def main_function(input, output):
 
         # Create a new column 'age_group' based on age grouping in 10s
         cleaning_instance.age_columns()
-    
-        # Crear la columna 'age_cat'
-        bins = [0, 12, 18, 35, 60, float('inf')]
-        labels = ['Children', 'Teens', 'Adults', 'Mid Adults', 'Elderly']
 
-        cleaned_data['age_cat'] = pd.cut(cleaned_data['age'], bins=bins, labels=labels, right=False)
+        # Crear la columna 'age_cat'
+        bins = [0, 12, 18, 35, 60, float("inf")]
+        labels = ["Children", "Teens", "Adults", "Mid Adults", "Elderly"]
+
+        cleaned_data["age_cat"] = pd.cut(
+            cleaned_data["age"], bins=bins, labels=labels, right=False
+        )
 
         # Remove rows with 'other' in the 'gender' column
         cleaning_instance.remove_rows_with_other_gender()
@@ -103,4 +106,3 @@ def main_function(input, output):
 if __name__ == "__main__":
     print("The code is properly working!")
     main_function()
-    

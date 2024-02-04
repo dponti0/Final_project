@@ -6,6 +6,7 @@ Script for the CleaningClass
 import pandas as pd
 from sklearn.ensemble import IsolationForest
 
+
 class DataCleaningClass:
     """
     Class for cleaning operations on a DataFrame
@@ -47,14 +48,16 @@ class DataCleaningClass:
         """
         Convert the first letter of all string columns to lowercase
         """
-        self.df = self.df.applymap(lambda x: x[0].lower() + x[1:] if isinstance(x, str) else x)
+        self.df = self.df.applymap(
+            lambda x: x[0].lower() + x[1:] if isinstance(x, str) else x
+        )
         return self.df
 
     def min_age(self, min_age: int) -> pd.DataFrame:
         """
         Remove rows where 'age' is less than the specified
         """
-        self.df = self.df[self.df['age'] >= min_age]
+        self.df = self.df[self.df["age"] >= min_age]
         return self.df
 
     def handle_missing_values(self) -> pd.DataFrame:
@@ -76,5 +79,5 @@ class DataCleaningClass:
         """
         Remove rows where 'gender' column contains the value 'other'
         """
-        self.df = self.df[self.df['gender'] != 'other']
+        self.df = self.df[self.df["gender"] != "other"]
         return self.df

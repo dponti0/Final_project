@@ -7,6 +7,7 @@ import os
 import pandas as pd
 from data_explorer import DatasetExplorer  # Import the DatasetExplorer class
 
+
 def explore_dataset(input_path="outputs/cleaned_dataset.csv"):
     """
     Main function to explore the dataset.
@@ -41,7 +42,7 @@ def explore_dataset(input_path="outputs/cleaned_dataset.csv"):
 
         # Call the new method and pass the FilteringClass instance
         explorer.filter_individuals_with_all_conditions()
-        
+
     except Exception as e:
         print(f"Error: {str(e)}")
 
@@ -49,7 +50,6 @@ def explore_dataset(input_path="outputs/cleaned_dataset.csv"):
 if __name__ == "__main__":
     print("The initial exploration is about to launch!!")
     # Create or clear the exploration output file
-    with open(os.path.join("outputs", "exploration_output.txt"), 'w'):
+    with open(os.path.join("outputs", "exploration_output.txt"), "w"):
         pass
     explore_dataset()
-

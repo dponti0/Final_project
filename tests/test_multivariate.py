@@ -10,24 +10,38 @@ from io import BytesIO
 from contextlib import redirect_stdout
 from scripts.multivariate_analysis import MultivariateVisualizer
 
+
 class TestMultivariateVisualizer(unittest.TestCase):
     """
     Class that includes all the testing functions
     """
+
     def setUp(self):
         """
         Sample DataFrame for testing
         """
         data = {
-            'age_cat': ['Teens', 'Adults', 'Elderly', 'Teens', 'Adults'],
-            'stroke': [0, 1, 0, 1, 0],
-            'avg_glucose_level': [80, 90, 100, 110, 120],
-            'bmi': [22, 25, 30, 28, 26],
-            'gender': ['Male', 'Female', 'Male', 'Female', 'Male'],
-            'heart_disease': [0, 1, 0, 1, 0],
-            'smoking_status': ['Non-smoker', 'Smoker', 'Non-smoker', 'Unknown', 'Unknown'],
-            'ever_married': ['Yes', 'Yes', 'No', 'Yes', 'No'],
-            'work_type': ['Private', 'Govt', 'Private', 'Self-employed', 'Self-employed']
+            "age_cat": ["Teens", "Adults", "Elderly", "Teens", "Adults"],
+            "stroke": [0, 1, 0, 1, 0],
+            "avg_glucose_level": [80, 90, 100, 110, 120],
+            "bmi": [22, 25, 30, 28, 26],
+            "gender": ["Male", "Female", "Male", "Female", "Male"],
+            "heart_disease": [0, 1, 0, 1, 0],
+            "smoking_status": [
+                "Non-smoker",
+                "Smoker",
+                "Non-smoker",
+                "Unknown",
+                "Unknown",
+            ],
+            "ever_married": ["Yes", "Yes", "No", "Yes", "No"],
+            "work_type": [
+                "Private",
+                "Govt",
+                "Private",
+                "Self-employed",
+                "Self-employed",
+            ],
         }
         self.df = pd.DataFrame(data)
         self.visualizer = MultivariateVisualizer(self.df)
@@ -61,7 +75,7 @@ class TestMultivariateVisualizer(unittest.TestCase):
 
     def test_marriage_bmi_relation(self):
         self._test_visualization_method(self.visualizer.marriage_bmi_relation)
-    
+
     def test_correlation_heatmap(self):
         self._test_visualization_method(self.visualizer.correlation_heatmap)
 
@@ -75,11 +89,14 @@ class TestMultivariateVisualizer(unittest.TestCase):
 
         # Check if any of the dimensions are zero
         plt_dims = plt.gcf().get_size_inches()
-        self.assertFalse(any(dim == 0 for dim in plt_dims), f"Plot dimensions should not be zero. Method: {method.__name__}")
+        self.assertFalse(
+            any(dim == 0 for dim in plt_dims),
+            f"Plot dimensions should not be zero. Method: {method.__name__}",
+        )
 
         # Close the plot to avoid overlapping plots
         plt.close()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
