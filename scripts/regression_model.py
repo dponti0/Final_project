@@ -102,3 +102,4 @@ if __name__ == "__main__":
     print(
         "The results were correctly saved in the outputs folder as stroke_prediction.txt'"
     )
+    print()

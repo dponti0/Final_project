@@ -10,14 +10,14 @@ import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
-
+import pdb
 
 # Define paths
 CLEANED_DATASET_PATH = "outputs/cleaned_dataset.csv"
 UNIVARIATE_PDF_PATH = "outputs/univariate_analysis.pdf"
 MULTIVARIATE_PDF_PATH = "outputs/multivariate_analysis.pdf"
 FEATURE_ENGINEERING_SCRIPT_PATH = "scripts/feature_engineering.py"
-REGRESSION_MODEL_PATH = "models/regression_model.pkl"
+REGRESSION_MODEL_PATH = "scripts/regression_model.py"
 MARRIAGE_STUDY_PATH = "outputs/marriage_study.pdf"
 
 
@@ -111,6 +111,9 @@ def main():
 
     # Run feature engineering script
     run_marriage_study_script()
+
+    # Add a breakpoint for debugging
+    pdb.set_trace()
 
     # Create PdfPages objects to store the plots in a single PDF
     uni_pdf_path = "outputs/univariate_analysis.pdf"
