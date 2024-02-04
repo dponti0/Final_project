@@ -294,3 +294,31 @@ class MultivariateVisualizer:
         # Ajustar el título y guardar el gráfico
         ax.set_title('Correlation Heatmap', fontweight='bold', fontsize=14)
         self.save_and_close()
+
+    def overall_health_pie_chart(self):
+        # Generate a pie chart for 'overall_health'
+        health_counts = self.df['overall_health'].value_counts()
+
+        # Colors for the pie chart
+        colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0']
+
+        # Explode the 'Very Good' slice for emphasis
+        explode = [0, 0, 0, 0.1, 0]
+
+        # Create pie chart
+        plt.figure(figsize=(8, 8))
+        plt.pie(health_counts, labels=health_counts.index, autopct='%1.1f%%', startangle=90, colors=colors, explode=explode, shadow=True, wedgeprops={'edgecolor': 'black'})
+
+        # Draw circle in the center
+        centre_circle = plt.Circle((0, 0), 0.70, fc='white')
+        fig = plt.gcf()
+        fig.gca().add_artist(centre_circle)
+
+        # Equal aspect ratio ensures that pie is drawn as a circle.
+        plt.tight_layout()
+
+        # Set the title
+        plt.title('Distribution of Overall Health')
+
+        # Save the pie chart to the PDF
+        self.save_and_close()
