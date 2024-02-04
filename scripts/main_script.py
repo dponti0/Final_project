@@ -7,6 +7,7 @@ import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
 from feature_engineering import create_overall_health_column
+from other_studies import perform_hypothesis_testing
 import os
 import subprocess
 
@@ -27,26 +28,28 @@ def visualize_univariate_relationships(uni_visualizer):
         """
         Visualize univariate distributions using the provided UniVisualizer instance
         """  
+        uni_visualizer.visualize_gender_distribution()
         uni_visualizer.visualize_age_distribution()
         uni_visualizer.visualize_age_group_distribution()
-        uni_visualizer.visualize_gender_distribution()
         uni_visualizer.visualize_hypertension_distribution()
         uni_visualizer.visualize_heart_disease_distribution()
-        uni_visualizer.visualize_strokes_distribution()
         uni_visualizer.visualize_glucose_distribution()
+        uni_visualizer.visualize_strokes_distribution()
         uni_visualizer.visualize_bmi_distribution()
         uni_visualizer.visualize_smoking_distribution()
-        uni_visualizer.visualize_work_type_distribution()
         uni_visualizer.visualize_marital_status_distribution()
+        uni_visualizer.visualize_work_type_distribution()
         uni_visualizer.visualize_residence_type_distribution()
 
 def visualize_multivariate_relationships(bi_visualizer):
         """
         Visualize multivariate distributions using the provided MultiVisualizer instance
         """
+        bi_visualizer.age_stroke_rate_lineplot()
         bi_visualizer.age_stroke_distribution()
-        bi_visualizer.glucose_stroke_distribution()
+        bi_visualizer.overall_health_pie_chart()
         bi_visualizer.bmi_stroke_distribution()
+        bi_visualizer.glucose_stroke_distribution()
         bi_visualizer.bmi_glucose_scatter()
         bi_visualizer.heart_disease_gender_age()
         bi_visualizer.glucose_smoking_distribution()
@@ -54,9 +57,7 @@ def visualize_multivariate_relationships(bi_visualizer):
         bi_visualizer.work_type_stroke_distribution()
         bi_visualizer.marriage_glucose_relation()
         bi_visualizer.marriage_bmi_relation()
-        bi_visualizer.age_stroke_rate_lineplot()
         bi_visualizer.correlation_heatmap()
-        bi_visualizer.overall_health_pie_chart()
 
 def main():
     # Run feature engineering script

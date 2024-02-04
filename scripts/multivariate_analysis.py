@@ -299,26 +299,34 @@ class MultivariateVisualizer:
         # Generate a pie chart for 'overall_health'
         health_counts = self.df['overall_health'].value_counts()
 
-        # Colors for the pie chart
-        colors = ['#ff9999', '#66b3ff', '#99ff99', '#ffcc99', '#c2c2f0']
+        # Colors for the pie chart (various shades of blue)
+        colors = ['#1f78b4', '#5593c8', '#74a7d2', '#caddee', '#abcae4']
 
         # Explode the 'Very Good' slice for emphasis
-        explode = [0, 0, 0, 0.1, 0]
+        explode = [0, 0, 0.1, 0, 0]
 
-        # Create pie chart
-        plt.figure(figsize=(8, 8))
-        plt.pie(health_counts, labels=health_counts.index, autopct='%1.1f%%', startangle=90, colors=colors, explode=explode, shadow=True, wedgeprops={'edgecolor': 'black'})
+        # Create a figure with two subplots, one for the pie chart and one for the label
+        fig, ax = plt.subplots(figsize=(8, 8))
+        ax_pie = plt.subplot(111, aspect='equal')
 
-        # Draw circle in the center
-        centre_circle = plt.Circle((0, 0), 0.70, fc='white')
-        fig = plt.gcf()
-        fig.gca().add_artist(centre_circle)
+        # Create pie chart with labels and black border
+        ax_pie.pie(
+            health_counts, 
+            labels=health_counts.index, 
+            autopct='%1.1f%%', 
+            startangle=90, 
+            colors=colors, 
+            explode=explode, 
+            shadow=True, 
+            wedgeprops={'edgecolor': 'black', 'linewidth': 1.5, "width":0.2},  # Adjust the linewidth
+            radius=0.8  # Adjust the radius (closer to 1 for smaller gap)
+        )
 
-        # Equal aspect ratio ensures that pie is drawn as a circle.
-        plt.tight_layout()
-
-        # Set the title
-        plt.title('Distribution of Overall Health')
+        # Equal aspect ratio ensures that the pie is drawn as a circle.
+        plt.axis('equal')
+        
+        # Set the title (bold)
+        ax_pie.set_title('Distribution of Overall Health', fontweight='bold', size=14)
 
         # Save the pie chart to the PDF
         self.save_and_close()
