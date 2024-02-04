@@ -1,4 +1,6 @@
-# initial_exploration.py
+"""
+Script for carrying out the initial exploration of the dataset
+"""
 
 # Import the necessary libraries
 import os
@@ -10,16 +12,15 @@ def explore_dataset(input_path="outputs/cleaned_dataset.csv"):
     Main function to explore the dataset.
     """
     try:
-        # Load the dataset
         dataset = pd.read_csv(input_path)
 
         # Initialize the DatasetExplorer class
         explorer = DatasetExplorer(dataset)
 
-        # Display basic information about the dataset
+        # Display basic information
         explorer.display_info()
 
-        # Display the first 5 rows of the dataset
+        # Display the first 5 rows
         explorer.display_head()
 
         # Display descriptive statistics

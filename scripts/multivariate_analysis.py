@@ -1,5 +1,5 @@
 """
-Script for the multivariate visual analysis
+Script for carrying out the multivariate visual analysis
 """
 
 # Import the required libraries
@@ -16,69 +16,88 @@ class MultivariateVisualizer:
         self.pdf_pages = pdf_pages
 
     def save_and_close(self):
+        """
+        Function to handle the saving and closing of the figures
+        """
+
         if self.pdf_pages:
             self.pdf_pages.savefig()
         plt.close()
             
     def age_stroke_distribution(self):
+        """
+        Function to conduct the age-stroke relation study
+        """
         fig, ax = plt.subplots(figsize=(12, 6))
 
         # Bar plot for age category distribution
         sns.countplot(x='age_cat', hue='stroke', data=self.df, palette='pastel', ax=ax)
-        ax.set_title('Age Category-Stroke Distribution', fontweight='bold')  # Título en negrita
-        ax.set_xlabel('Age Category', fontstyle='italic')  # Título del eje x en cursiva
-        ax.set_ylabel('Count', fontstyle='italic')  # Título del eje y en cursiva
+        ax.set_title('Age Category-Stroke Distribution', fontweight='bold') 
+        ax.set_xlabel('Age Category', fontstyle='italic')  
+        ax.set_ylabel('Count', fontstyle='italic')  
 
-        # Añadir líneas de fondo intermitentes en el eje horizontal
+        # Intermittent background lines on the horizontal axis
         ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
 
-        # Ajustar leyenda
+        # Legend & decoration
         ax.legend(title='Stroke', loc='upper right', labels=['No', 'Yes'])
 
         sns.despine(trim=True, left=True)
 
+        # Save & close the function
         self.save_and_close()
 
     def glucose_stroke_distribution(self):
+        """
+        Function to conduct the glucose-stroke relation study (kdeplot)
+        """
+
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # KDE plot for glucose-stroke distribution
+        # KDE plot
         sns.kdeplot(data=self.df, x='avg_glucose_level', hue='stroke', fill=True, common_norm=False, palette='viridis', ax=ax)
-        ax.set_title('Distribution of Average Glucose Level by Stroke', fontweight='bold')  # Título en negrita
-        ax.set_xlabel('Average Glucose Level', fontstyle='italic')  # Título del eje x en cursiva
-        ax.set_ylabel('Density', fontstyle='italic')  # Título del eje y en cursiva
+        ax.set_title('Distribution of Average Glucose Level by Stroke', fontweight='bold')  
+        ax.set_xlabel('Average Glucose Level', fontstyle='italic')  
+        ax.set_ylabel('Density', fontstyle='italic')  
 
-        # Añadir líneas de fondo intermitentes en el eje horizontal
+        # Intermittent background lines on the horizontal axis
         ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
 
-        # Personalizar la apariencia de los cuadros
+        # Appearance of the frames & legend
         sns.despine(trim=True, left=True, ax=ax)
 
         ax.legend(labels=['Stroke', 'Non Stroke'], fontsize='8')
 
+        # Save and close the function
         self.save_and_close()
 
-
     def bmi_stroke_distribution(self):
+        """
+        Function to create the violinplot and conduct the bmi-stroke study
+        """
+
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # Violin plot para la distribución BMI-Stroke
+        # Violin plot for BMI-Stroke distribution
         sns.violinplot(x='stroke', y='bmi', data=self.df, palette='Set2', ax=ax)
 
-        # Título y etiquetas de los ejes
-        ax.set_title('Distribution of BMI by Stroke', fontweight='bold', fontsize=14)  # Título en negrita y tamaño grande
-        ax.set_xlabel('Stroke (0: No, 1: Yes)', fontstyle='italic', fontsize=10)  # Etiqueta del eje x en cursiva y tamaño mediano
-        ax.set_ylabel('BMI', fontstyle='italic', fontsize=10)  # Etiqueta del eje y en cursiva y tamaño mediano
+        # Title and axis labels
+        ax.set_title('Distribution of BMI by Stroke', fontweight='bold', fontsize=14)  
+        ax.set_xlabel('Stroke (0: No, 1: Yes)', fontstyle='italic', fontsize=10)  
+        ax.set_ylabel('BMI', fontstyle='italic', fontsize=10)  
 
-        # Decoraciones adicionales
-        ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)  # Líneas de fondo intermitentes en el eje horizontal
+        # Intermittent background lines on the horizontal axis        
+        ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)  
 
-        # Personalizar la apariencia de los cuadros
+        # Appearance of the frames
         sns.despine(trim=True, left=True, ax=ax)
 
         self.save_and_close()
 
     def bmi_glucose_scatter(self):
+        """
+        Function to create the scatterplot and conduct the bmi-glucose study
+        """
         plt.figure(figsize=(12, 8))
         
         # Scatter plot for 'No' (stroke=0)
@@ -87,10 +106,12 @@ class MultivariateVisualizer:
         # Scatter plot for 'Yes' (stroke=1)
         sns.scatterplot(x='bmi', y='avg_glucose_level', data=self.df[self.df['stroke'] == 1], color='#ff7f0e', alpha=1, label='Stroke')
         
+        # Title, labels & legend
         plt.title('BMI-Glucose Scatter Plot with Stroke', fontweight='bold')
         plt.xlabel('BMI', fontstyle='italic')
         plt.ylabel('Average Glucose Level', fontstyle='italic')
         plt.legend()
+
         self.save_and_close()
 
 
@@ -108,216 +129,248 @@ class MultivariateVisualizer:
 
 
     def glucose_smoking_distribution(self):
+        """
+        Function for creating a stripplot and conducting the glucose-smoking study
+        """
+
         plt.figure(figsize=(12, 6))
-        
-        # Definir colores específicos y etiquetas para las categorías de enfermedades cardíacas
+
+        # Style
         colors = {0: '#7FB3D5', 1: '#E88E5A'}
         labels = {0: 'Non-Heart Disease', 1: 'Heart Disease'}
-        
-        # Crear un strip plot en lugar de un swarm plot
+
+        # Strip plot figure
         sns.stripplot(x='smoking_status', y='avg_glucose_level', hue='heart_disease', data=self.df,
                     palette=colors, dodge=True, jitter=0.2, size=8)
-        
+
         plt.title('Glucose Levels between Smokers and Non-smokers', fontweight='bold', fontsize=12)
         plt.xlabel('Smoking Status', fontstyle='italic', fontsize=10)
         plt.ylabel('Average Glucose Level', fontstyle='italic', fontsize=10)
-        
-        # Añadir leyenda con etiquetas y ajustar tamaño
-        legend_labels = [plt.Line2D([0], [0], marker='o', color='w', label=labels[i], 
-                                markerfacecolor=colors[i], markersize=8) for i in labels]
-        
+
+        # Legend with labels and adjusted size
+        legend_labels = [plt.Line2D([0], [0], marker='o', color='w', label=labels[i],
+                                    markerfacecolor=colors[i], markersize=8) for i in labels]
+
         plt.legend(handles=legend_labels, loc='upper right', bbox_to_anchor=(1, 1), fontsize=6)
-        
-        # Añadir línea horizontal intermitente con mensaje de threshold de glucosa
-        threshold_glucose = 140  
+
+        # Intermittent horizontal line & glucose threshold message
+        threshold_glucose = 140
         plt.axhline(y=threshold_glucose, color='gray', linestyle='--', linewidth=0.5)
         plt.text(3, threshold_glucose + 2, 'Threshold Glucose Level', fontstyle='italic', color='black', fontsize=6)
-        
+
         self.save_and_close()
 
+
     def age_bmi_relation(self):
+        """
+        Function to create the Kdeplot (age-bmi relation study)
+        """
+
         plt.figure(figsize=(12, 6))
-        
-        # Crear un kdeplot con colores y transparencia
+
+        # Kdeplot with colors and transparency
         sns.kdeplot(x='age', y='bmi', data=self.df, fill=True, cmap='coolwarm', levels=5, thresh=0.05)
-        
-        # Añadir líneas grises intermitentes en el eje horizontal
+
+        # Intermittent gray lines on the horizontal axis
         plt.axhline(y=20, color='gray', linestyle='--', linewidth=0.8)
         plt.axhline(y=25, color='gray', linestyle='--', linewidth=0.8)
         plt.axhline(y=30, color='gray', linestyle='--', linewidth=0.8)
-        
+
         plt.title('Age-BMI Relation', fontweight='bold', fontsize=12, loc='center')
         plt.xlabel('Age', fontstyle='italic', fontsize=11)
         plt.ylabel('BMI', fontstyle='italic', fontsize=11)
-        
-        # Añadir etiquetas descriptivas
+
+        # Descriptive labels
         plt.text(80, 18, 'Underweight', color='black', fontsize=8, fontstyle='italic')
         plt.text(80, 23, 'Normal Weight', color='black', fontsize=8, fontstyle='italic')
         plt.text(80, 28, 'Overweight', color='black', fontsize=8, fontstyle='italic')
-        
+
+        # Save & close
         self.save_and_close()
 
-
     def work_type_stroke_distribution(self):
+        """
+        Function to create a countplot for the work type-strokes relation
+        """
         plt.figure(figsize=(11, 6))
-        
-        # Utilizar los mismos colores que en glucose_stroke_distribution
+
+        # Style
         colors = ['#ADD8E6', '#FFD700']
         ax = sns.countplot(x='work_type', hue='stroke', data=self.df, palette=colors)
 
-        # Título y etiquetas de los ejes
+        # Title and axis labels
         ax.set_title('Work Type - Stroke Distribution', fontsize=14, fontweight='bold')
         ax.set_xlabel('Work Type', fontstyle='italic', fontsize=10)
-        ax.set_ylabel('Number of People',  fontstyle='italic', fontsize=10)
+        ax.set_ylabel('Number of People', fontstyle='italic', fontsize=10)
 
-        # Leyenda
-        ax.legend(fontsize='10',labels=['Non Stroke', 'Stroke'])
+        # Legend
+        ax.legend(fontsize='10', labels=['Non Stroke', 'Stroke'])
 
-        # Estilo de los ejes y el fondo
+        # Axis and background style
         sns.despine(trim=True, left=True)
 
-        # Añadir líneas de fondo intermitentes en el eje horizontal
+        # Intermittent background lines on the horizontal axis
         ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
 
         self.save_and_close()
 
     def marriage_glucose_relation(self):
-            plt.figure(figsize=(12, 6))
-            
-            # Utilizar un KDE plot en lugar de un boxplot
-            sns.kdeplot(data=self.df, x='avg_glucose_level', hue='ever_married', fill=True, common_norm=False, palette='pastel')
-            
-            plt.title('Marriage - Average Glucose Level Relation', fontweight='bold', fontsize=14)
-            plt.xlabel('Average Glucose Level', fontstyle='italic', fontsize=10)
-            plt.ylabel('Density', fontstyle='italic', fontsize=10)
-            
-            # Añadir líneas de fondo intermitentes en el eje horizontal
-            plt.gca().yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
-            
-            # Personalizar la apariencia de los cuadros
-            sns.despine(trim=True, left=True)
+        """
+        Function to create the Kdeplot (marriage-glucose study)
+        """
+        plt.figure(figsize=(12, 6))
 
-            # Añadir leyenda con etiquetas y ajustar tamaño
-            labels = {0: 'Married', 1: 'Not married'}
-            legend_labels = [plt.Line2D([0], [0], marker='o', color='w', label=labels[i], 
-                                        markerfacecolor=sns.color_palette('pastel')[i], markersize=8) for i in labels]
-            
-            plt.legend(handles=legend_labels, loc='upper right', bbox_to_anchor=(1, 1), fontsize=10)
-            
-            self.save_and_close()
+        # KDE plot 
+        sns.kdeplot(data=self.df, x='avg_glucose_level', hue='ever_married', fill=True, common_norm=False, palette='pastel')
+
+        # Title & labels
+        plt.title('Marriage - Average Glucose Level Relation', fontweight='bold', fontsize=14)
+        plt.xlabel('Average Glucose Level', fontstyle='italic', fontsize=10)
+        plt.ylabel('Density', fontstyle='italic', fontsize=10)
+
+        # Background lines
+        plt.gca().yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
+
+        # Appearance 
+        sns.despine(trim=True, left=True)
+
+        # Legend with labels and size
+        labels = {0: 'Married', 1: 'Not married'}
+        legend_labels = [plt.Line2D([0], [0], marker='o', color='w', label=labels[i], 
+                                    markerfacecolor=sns.color_palette('pastel')[i], markersize=8) for i in labels]
+
+        plt.legend(handles=legend_labels, loc='upper right', bbox_to_anchor=(1, 1), fontsize=10)
+
+        # Save & close
+        self.save_and_close()
 
 
     def age_stroke_rate_lineplot(self):
-        # Configurar el estilo de los gráficos de Seaborn
+        """
+        Function to create the age-stroke lineplot
+        """
+
+        # Style
         sns.set(style="whitegrid")
 
-        # Crear la figura y los ejes
+        # Figure and axes
         fig, ax = plt.subplots(figsize=(12, 6))
 
-        # Calcular la tasa de accidentes cerebrovasculares por grupo de edad
+        # Calculate the stroke rate per age group
         age_groups = self.df['age_cat'].unique()
         stroke_rate = []
         for age_group in age_groups:
             subset = self.df[self.df['age_cat'] == age_group]
             stroke_rate.append(subset['stroke'].mean())
 
-        # Invertir el orden de los grupos de edad
+        # Reverse the order of age groups
         age_groups = age_groups[::-1]
         stroke_rate = stroke_rate[::-1]
 
-        # Crear el gráfico de líneas
+        # Create the line plot
         sns.lineplot(x=age_groups, y=stroke_rate, color='#0f4c81', ax=ax, marker='o')
 
-        # Añadir líneas de fondo intermitentes en el eje horizontal
+        # Background lines on the horizontal axis
         ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
 
-        # Personalizar la apariencia de los cuadros
+        # Appearance of the frames
         sns.despine(trim=True, left=True)
 
-        # Añadir etiquetas al gráfico
+        # Labels to the chart
         ax.set_title('Stroke Rate by Age Group', fontweight='bold', fontsize=14)
         ax.set_xlabel('Age Group', fontstyle='italic', fontsize=10)
         ax.set_ylabel('Stroke Rate', fontstyle='italic', fontsize=10)
 
-        # Guardar y cerrar el gráfico
+        # Save and close the chart in the PDF
         self.save_and_close()
 
     def marriage_bmi_relation(self):
-        # Configurar el estilo de los gráficos de Seaborn
+        """
+        Function to generate the marriage-bmi graph
+        """
+        # Set the style of Seaborn charts
         sns.set(style="whitegrid")
 
-        # Configurar el fondo
+        # Set the background color
         background_color = '#f6f5f5'
 
-        # Crear la figura y los ejes
+        # Create the figure and axes
         fig, ax = plt.subplots(figsize=(12, 6), facecolor=background_color)
         ax.set_facecolor(background_color)
 
-        # Crear el gráfico de densidad de kernel (kdeplot)
+        # Create the kernel density estimate (kdeplot)
         sns.kdeplot(data=self.df, x='bmi', hue='ever_married', fill=True, common_norm=False, palette='Set2', ax=ax)
 
-        # Añadir líneas de fondo intermitentes en el eje horizontal
+        # Add intermittent background lines on the horizontal axis
         ax.yaxis.grid(color='gray', linestyle='--', linewidth=0.5)
 
-        # Personalizar la apariencia de los cuadros
+        # Customize the appearance of the frames
         sns.despine(trim=True, left=True)
 
-        # Añadir leyenda con etiquetas y ajustar tamaño
+        # Add legend with labels and adjust size
         labels = {0: 'Not Married', 1: 'Married'}
         legend_labels = [plt.Line2D([0], [0], marker='o', color='w', label=labels[i], 
                                     markerfacecolor=sns.color_palette('Set2')[i], markersize=8) for i in labels]
         
         plt.legend(handles=legend_labels, loc='upper right', bbox_to_anchor=(1, 1), fontsize=10)
 
-        # Añadir etiquetas al gráfico
+        # Add labels to the chart
         ax.set_title('Marriage - BMI Relation', fontweight='bold', fontsize=14)
         ax.set_xlabel('BMI', fontstyle='italic', fontsize=10)
         ax.set_ylabel('Density', fontstyle='italic', fontsize=10)
 
-        # Guardar y cerrar el gráfico
+        # Save and close the chart
         self.save_and_close()
 
+
     def correlation_heatmap(self):
-        # Seleccionar solo las columnas numéricas
+        """
+        Function to generate the correlation heatmap
+        """
+
+        # Select the numerical columns
         numeric_columns = self.df.select_dtypes(include=['number']).columns
         numeric_df = self.df[numeric_columns]
 
-        # Configurar el estilo de los gráficos de Seaborn
+        # Style
         sns.set(style="white")
 
-        # Calcular la matriz de correlación
+        # Calculate the correlation matrix
         correlation_matrix = numeric_df.corr()
 
-        # Crear la figura y los ejes
+        # Figure and axis
         fig, ax = plt.subplots(figsize=(12, 9))
 
-        # Crear el heatmap de correlación
+        # Create the heatmap
         sns.heatmap(correlation_matrix, annot=True, cmap="Blues", fmt=".2f", linewidths=.35, ax=ax)
 
-        # Ajustar las etiquetas de los ejes y el título
+        # Labels & titles
         ax.set_title('Correlation Heatmap', fontweight='bold', fontsize=16)
         ax.set_xticklabels(ax.get_xticklabels(), rotation=45, horizontalalignment='right', fontsize=7.5)
         ax.set_yticklabels(ax.get_yticklabels(), fontsize=7)
-
-        # Ajustar el título y guardar el gráfico
         ax.set_title('Correlation Heatmap', fontweight='bold', fontsize=14)
+
+        # Save in the PDF
         self.save_and_close()
 
     def overall_health_pie_chart(self):
-        # Generate a pie chart for 'overall_health'
+        """
+        Function to generate a pie chart about the overall health
+        """
+
         health_counts = self.df['overall_health'].value_counts()
 
-        # Colors for the pie chart (various shades of blue)
+        # Colors 
         colors = ['#1f78b4', '#5593c8', '#74a7d2', '#caddee', '#abcae4']
 
-        # Explode the 'Very Good' slice for emphasis
+        # Emphasize the 'Very Good' slice
         explode = [0, 0, 0.1, 0, 0]
 
-        # Create a figure with two subplots, one for the pie chart and one for the label
+        # Two subplots, one for the pie chart and one for the label
         fig, ax = plt.subplots(figsize=(8, 8))
-        ax_pie = plt.subplot(111, aspect='equal')
+        ax_pie = plt.subplot(111)
 
-        # Create pie chart with labels and black border
+        # Create the pie chart 
         ax_pie.pie(
             health_counts, 
             labels=health_counts.index, 
@@ -326,15 +379,12 @@ class MultivariateVisualizer:
             colors=colors, 
             explode=explode, 
             shadow=True, 
-            wedgeprops={'edgecolor': 'black', 'linewidth': 1.5, "width":0.2},  # Adjust the linewidth
-            radius=0.8  # Adjust the radius (closer to 1 for smaller gap)
+            textprops={'fontstyle': 'italic'},
+            wedgeprops={'edgecolor': 'black', 'linewidth': 1.5, "width":0.2},  
         )
-
-        # Equal aspect ratio ensures that the pie is drawn as a circle.
-        plt.axis('equal')
         
-        # Set the title (bold)
+        # Title
         ax_pie.set_title('Distribution of Overall Health', fontweight='bold', size=14)
 
-        # Save the pie chart to the PDF
+        # Save in the PDF
         self.save_and_close()

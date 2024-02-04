@@ -1,8 +1,16 @@
+"""
+Script for testing the filtering class
+"""
+
+# Import the necessary libraries
 import unittest
 import pandas as pd
 from scripts.filtering import FilteringClass
 
 class TestFilteringClass(unittest.TestCase):
+    """
+    Class that includes all the testing functions
+    """
     def setUp(self):
         """
         Sample DataFrame for testing

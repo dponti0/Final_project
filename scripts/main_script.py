@@ -20,19 +20,29 @@ feature_engineering_script_path = 'scripts/feature_engineering.py'
 regression_model_path = "scripts/regression_model.py"
 marriage_study_path = "scripts/marriage_study.py"
 
+# Define the functions for runing each script
 def run_feature_engineering_script():
+    """
+    Function for running the feature engineering script
+    """
     try:
         subprocess.run(['python', feature_engineering_script_path])
     except Exception as e:
         print(f"Error while running the feature engineering script: {e}")
 
 def run_regression_model_script():
+    """
+    Function for running the predictive modeling script
+    """
     try:
         subprocess.run(['python', regression_model_path])
     except Exception as e:
         print(f"Error while running the regression model script: {e}")
 
 def run_marriage_study_script():
+    """
+    Function for running the marriage study
+    """
     try:
         subprocess.run(['python', marriage_study_path])
     except Exception as e:
@@ -73,11 +83,12 @@ def visualize_multivariate_relationships(bi_visualizer):
         bi_visualizer.marriage_bmi_relation()
         bi_visualizer.correlation_heatmap()
 
-def main():    
+def main():
+
     print("\nThe main script is properly running!!")
     print()
     
-    # Read cleaned dataset
+    # Read the cleaned dataset
     data = pd.read_csv(cleaned_dataset_path)
     
     # Create the 'outputs' folder if it does not exist
@@ -103,7 +114,7 @@ def main():
     uni_visualizer = UnivariateVisualizer(data, uni_pdf_pages)
     bi_visualizer = MultivariateVisualizer(data, bi_pdf_pages)
 
-    # Call visualization methods (univariate)
+    # Call the visualization methods
     visualize_univariate_relationships(uni_visualizer)
     visualize_multivariate_relationships(bi_visualizer)
 

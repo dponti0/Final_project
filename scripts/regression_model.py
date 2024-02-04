@@ -13,6 +13,9 @@ from sklearn.pipeline import Pipeline
 import joblib
 
 def train_regression_model(X, y):
+    """
+    Function to carry out the train regression model
+    """
     # Identify numerical and categorical columns
     numerical_cols = X.select_dtypes(include=['float64']).columns
     categorical_cols = X.select_dtypes(include=['object']).columns
@@ -39,6 +42,9 @@ def train_regression_model(X, y):
     return model
 
 def evaluate_model(model, X_test, y_test):
+    """
+    Function to evaluate the performance of the model
+    """
     # Predict on the test set
     y_pred = model.predict(X_test)
 
@@ -60,12 +66,13 @@ def evaluate_model(model, X_test, y_test):
         file.write(f'R-squared on Test Set: {rounded_r2}\n')
 
 if __name__ == '__main__':
+    
     print("\nThe regression model code is properly working!!")
-    # Specify input and output paths
+    
+    # Input and output paths
     input_path = 'outputs/cleaned_dataset.csv'
     output_path = 'outputs/data_with_stroke_risk.csv'
 
-    # Load the dataset
     df = pd.read_csv(input_path)
 
     # Separate features (X) and the target variable (y)

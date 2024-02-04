@@ -1,7 +1,8 @@
 """
-Module to test MultivariateVisualizer class for visualizing distributions of variables
+Script for testing the multivariate class
 """
 
+# Import the necessary libraries
 import unittest
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,6 +11,9 @@ from contextlib import redirect_stdout
 from scripts.multivariate_analysis import MultivariateVisualizer
 
 class TestMultivariateVisualizer(unittest.TestCase):
+    """
+    Class that includes all the testing functions
+    """
     def setUp(self):
         """
         Sample DataFrame for testing

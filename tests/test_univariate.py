@@ -1,7 +1,8 @@
 """
-Module to test UnivariateVisualizer class for visualizing distributions of variables
+Script for testing the univariate class
 """
 
+# Import the necessary libraries
 import unittest
 import pandas as pd
 import seaborn as sns
@@ -11,6 +12,9 @@ from contextlib import redirect_stdout
 from scripts.univariate_analysis import UnivariateVisualizer
 
 class TestUnivariateVisualizer(unittest.TestCase):
+    """
+    Class that includes all the testing functions
+    """
     def setUp(self):
         """
         Sample DataFrame for testing

@@ -1,10 +1,17 @@
+"""
+Script for testing the cleaning class
+"""
+
+# Import the necessary libraries
 import unittest
 import pandas as pd
 from unittest.mock import patch
 from scripts.cleaning_class import DataCleaningClass
 
 class TestDataCleaningClass(unittest.TestCase):
-
+    """
+    Class that includes all the testing functions
+    """
     def setUp(self):
         # Sample data for testing
         data = {
