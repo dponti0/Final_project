@@ -12,7 +12,9 @@ from scripts.univariate_analysis import UnivariateVisualizer
 
 class TestUnivariateVisualizer(unittest.TestCase):
     def setUp(self):
-        # Sample DataFrame for testing
+        """
+        Sample DataFrame for testing
+        """
         data = {
             'age': [25, 35, 45, 55, 65],
             'age_group': [20, 30, 40, 50, 60],
@@ -38,13 +40,13 @@ class TestUnivariateVisualizer(unittest.TestCase):
 
     def test_visualize_age_group_distribution(self):
         """
-        Test visualization of the age group column distribution
+        Test the visualization of the age group column distribution
         """
         self._test_visualization_method(self.visualizer.visualize_age_group_distribution)
 
     def visualize_gender_distribution(self):
         """
-        Visualize the distribution of gender in the dataset
+        Test the visualization of the gender distribution in the dataset
         """
         f_df = self.df[self.df['gender'].isin(['male', 'female'])]
         gender_percentages = f_df['gender'].value_counts(normalize=True) * 100
@@ -64,55 +66,55 @@ class TestUnivariateVisualizer(unittest.TestCase):
 
     def test_visualize_hypertension_distribution(self):
         """
-        Visualize the hypertension distribution
+        Test the visualization of the hypertension distribution
         """
         self._test_visualization_method(self.visualizer.visualize_hypertension_distribution)
 
     def test_visualize_heart_disease_distribution(self):
         """
-        Visualize the heart disease distribution in the dataset
+        Test the visualization of the heart disease distribution in the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_heart_disease_distribution)
 
     def test_visualize_glucose_distribution(self):
         """
-        Visualize the average glucose level distribution in the dataset
+        Test the visualization of the average glucose level distribution in the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_glucose_distribution)
 
     def test_visualize_bmi_distribution(self):
         """
-        Visualize the bmi distribution in the dataset
+        Test the visualization of the bmi distribution in the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_bmi_distribution)
 
     def test_visualize_work_type_distribution(self):
         """
-        Visualize the work type distribution in the dataset
+        Test the visualization of the work type distribution in the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_work_type_distribution)
 
     def test_visualize_marital_status_distribution(self):
         """
-        Visualize the marital status distribution of the dataset
+        Test the visualization of the marital status distribution of the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_marital_status_distribution)
 
     def test_visualize_residence_type_distribution(self):
         """
-        Visualize the residence type distribution 
+        Test the visualization of the residence type distribution 
         """
         self._test_visualization_method(self.visualizer.visualize_residence_type_distribution)
 
     def test_visualize_smoking_distribution(self):
         """
-        Visualize the smoking column distribution of the dataset
+        Test the visualization the smoking column distribution of the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_smoking_distribution)
 
     def test_visualize_strokes_distribution(self):
         """
-        Visualize the strokes distribution in the dataset
+        Test the visualization of the strokes distribution in the dataset
         """
         self._test_visualization_method(self.visualizer.visualize_strokes_distribution)
 

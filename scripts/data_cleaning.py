@@ -1,7 +1,14 @@
 import os
 import pandas as pd
 import click
-from cleaning_class import DataCleaningClass  
+import sys
+import os
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
+from scripts.data_cleaning import load_dataset 
+
 
 def load_dataset(filename):
     """
