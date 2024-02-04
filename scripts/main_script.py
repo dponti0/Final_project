@@ -6,29 +6,24 @@ import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
+from feature_engineering import create_overall_health_column
 import os
+import subprocess
 
-def main():
-    
-    data = pd.read_csv("outputs/cleaned_dataset.csv")
 
-    # Crear la carpeta 'outputs' si no existe
-    os.makedirs("outputs", exist_ok=True)
+# Define paths
+cleaned_dataset_path = "outputs/cleaned_dataset.csv"
+univariate_pdf_path = "outputs/univariate_analysis.pdf"
+multivariate_pdf_path = "outputs/multivariate_analysis.pdf"
+feature_engineering_script_path = 'scripts/feature_engineering.py'
 
-    # Crear un objeto PdfPages para almacenar los gráficos en un solo PDF
-    uni_pdf_path = "outputs/univariate_analysis.pdf"
-    bi_pdf_path = "outputs/multivariate_analysis.pdf"
+def run_feature_engineering_script():
+    try:
+        subprocess.run(['python', feature_engineering_script_path])
+    except Exception as e:
+        print(f"Error while running the feature engineering script: {e}")
 
-    uni_pdf_pages = pdf_backend.PdfPages(uni_pdf_path)
-    bi_pdf_pages = pdf_backend.PdfPages(bi_pdf_path)
-
-    # Crear instancias de la clase UnivariateVisualizer y MultivariateVisualizer
-    uni_visualizer = UnivariateVisualizer(data, uni_pdf_pages)
-    bi_visualizer = MultivariateVisualizer(data, bi_pdf_pages)
-
-    # Llamar a los métodos de visualización (univariate)
-
-    def visualize_univariate_relationships(uni_visualizer):
+def visualize_univariate_relationships(uni_visualizer):
         """
         Visualize univariate distributions using the provided UniVisualizer instance
         """  
@@ -45,7 +40,7 @@ def main():
         uni_visualizer.visualize_marital_status_distribution()
         uni_visualizer.visualize_residence_type_distribution()
 
-    def visualize_multivariate_relationships(bi_visualizer):
+def visualize_multivariate_relationships(bi_visualizer):
         """
         Visualize multivariate distributions using the provided MultiVisualizer instance
         """
@@ -61,11 +56,37 @@ def main():
         bi_visualizer.marriage_bmi_relation()
         bi_visualizer.age_stroke_rate_lineplot()
         bi_visualizer.correlation_heatmap()
+        bi_visualizer.overall_health_pie_chart()
 
+def main():
+    # Run feature engineering script
+    run_feature_engineering_script()
+    
+    # Read cleaned dataset
+    data = pd.read_csv(cleaned_dataset_path)
+
+    # Create 'overall_health' column
+    data = create_overall_health_column(data)
+    
+    # Create the 'outputs' folder if it does not exist
+    os.makedirs("outputs", exist_ok=True)
+
+    # Create PdfPages objects to store the plots in a single PDF
+    uni_pdf_path = "outputs/univariate_analysis.pdf"
+    bi_pdf_path = "outputs/multivariate_analysis.pdf"
+
+    uni_pdf_pages = pdf_backend.PdfPages(uni_pdf_path)
+    bi_pdf_pages = pdf_backend.PdfPages(bi_pdf_path)
+
+    # Create instances of the UnivariateVisualizer and MultivariateVisualizer classes
+    uni_visualizer = UnivariateVisualizer(data, uni_pdf_pages)
+    bi_visualizer = MultivariateVisualizer(data, bi_pdf_pages)
+
+    # Call visualization methods (univariate)
     visualize_univariate_relationships(uni_visualizer)
     visualize_multivariate_relationships(bi_visualizer)
 
-    # Cerrar los objetos PdfPages para finalizar los PDFs
+    # Close PdfPages objects to finalize the PDFs
     uni_pdf_pages.close()
     bi_pdf_pages.close()
 
@@ -75,7 +96,5 @@ def main():
 
 if __name__ == "__main__":
     print("The main script is properly running!!")
+    print()
     main()
-
-# python scripts/main_script.py
-    

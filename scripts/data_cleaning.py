@@ -3,6 +3,16 @@ import pandas as pd
 import click
 from cleaning_class import DataCleaningClass  
 
+
+def load_dataset(filename):
+    """
+    Function to load the dataset
+    """
+    extension = filename.rsplit(".", 1)[-1]
+    if extension.lower() != "csv":
+        raise TypeError(f"The extension is {extension} and not 'csv'.")
+    return pd.read_csv(filename)
+
 # Click command
 @click.command(short_help="Clean and filter dataset")
 @click.option(
@@ -20,17 +30,10 @@ from cleaning_class import DataCleaningClass
 )
 def main_function(input, output):
     """
-    Main function to load, clean & filter the dataset
+    Main function to clean & filter the dataset
     """
-    try:
-        extension = input.rsplit(".", 1)[-1]
-        if extension.lower() != "csv":
-            raise TypeError(
-                f"The extension is {extension} and not 'csv'. Please provide a CSV file."
-            )
-
-        # Load the dataset
-        health_data = pd.read_csv(input)
+    try:        
+        health_data = load_dataset(input)
 
         # Print the shape of the original dataset
         print("Original dataset shape:", health_data.shape)
