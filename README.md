@@ -104,3 +104,4 @@ In conclusion, age emerges as the most significant factor in health issues. Howe
 - *I did not erase the outputs just in case you previously wanted to visualize them, by running the code you should get the same results.*
 - *Debugging was employed only once to enhance the smooth execution of the code.*
 - *Some errors arise when running the main_script, however, they are future warning errors which do not directly impact the final output.*
+
