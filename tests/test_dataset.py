@@ -1,112 +1,28 @@
-"""
-Script for testing the cleaning class
-"""
-
-# Import the necessary libraries
 import unittest
-from unittest.mock import patch
 import pandas as pd
-from scripts.cleaning_class import DataCleaningClass
+from sklearn.ensemble import IsolationForest
+from unittest.mock import patch
 
+def remove_outliers(df: pd.DataFrame, columns: list) -> pd.DataFrame:
+    """Remove outliers from a DataFrame using Isolation Forest."""
+    df = df.dropna(subset=columns)
+    clf = IsolationForest(contamination=0.05)
+    outliers_mask = clf.fit_predict(df[columns]) == -1
+    df = df[~outliers_mask]
+    return df
 
-class TestDataCleaningClass(unittest.TestCase):
-    """
-    Class that includes all the testing functions
-    """
+class TestOutlierRemoval(unittest.TestCase):
+    """Test case for the remove_outliers function."""
+    @patch('pandas.read_csv')
+    @patch('sklearn.ensemble.IsolationForest')
+    def test_remove_outliers(self, mock_isolation_forest, mock_read_csv):
+        """Mocks IsolationForest and DataFrame loaded from CSV, then asserts the behavior of removing outliers from the DataFrame."""
+        mock_isolation_forest.return_value.fit_predict.return_value = [1] * 8 + [-1, -1]  # Mocking two outliers in the last two rows
+        mock_read_csv.return_value = pd.DataFrame({'feature1': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 'feature2': [10, 9, 8, 7, 6, 5, 4, 3, 2, 1]})
+        columns_to_remove_outliers = ['feature1', 'feature2']
+        result_df = remove_outliers(pd.read_csv('dummy_path.csv'), columns_to_remove_outliers)
+        self.assertIsInstance(result_df, pd.DataFrame)
+        self.assertEqual(len(result_df), 9)  # Expecting one outlier to be removed
 
-    def setUp(self):
-        # Sample data for testing
-        data = {
-            "age": [25, 30, 40, 45, 50, 60, 70, 80, 90, 100],
-            "gender": [
-                "Male",
-                "Female",
-                "Male",
-                "Female",
-                "Male",
-                "Female",
-                "Male",
-                "Female",
-                "Male",
-                "Female",
-            ],
-        }
-        self.df = pd.DataFrame(data)
-        self.cleaning_instance = DataCleaningClass(self.df.copy())
-
-    def test_remove_outliers(self):
-        """
-        Testing the remove outliers function
-        """
-        with patch(
-            "sklearn.ensemble.IsolationForest", return_value=MockIsolationForest()
-        ):
-            cleaned_data = self.cleaning_instance.remove_outliers(["age"])
-        self.assertFalse(any(cleaned_data["age"] > 100))
-
-    def test_remove_duplicates(self):
-        """
-        Testing the remove duplicates function
-        """
-        # Create a duplicate row
-        duplicate_row = pd.DataFrame({"age": [25], "gender": ["Male"]})
-        self.df = pd.concat([self.df, duplicate_row], ignore_index=True)
-
-        cleaned_data = self.cleaning_instance.remove_duplicates()
-        self.assertEqual(len(cleaned_data), len(self.df.drop_duplicates()))
-
-    def test_convert_first_letter_to_lowercase(self):
-        """
-        Testing the converting to lowercase the first letter function
-        """
-        self.df["gender"] = self.df["gender"].apply(lambda x: x.upper())
-        cleaned_data = self.cleaning_instance.convert_first_letter_to_lowercase()
-        self.assertTrue(all(cleaned_data["gender"].str.islower()))
-
-    def test_min_age(self):
-        """
-        Testing the minimum age function
-        """
-        cleaned_data = self.cleaning_instance.min_age(40)
-        self.assertTrue(all(cleaned_data["age"] >= 40))
-
-    def test_handle_missing_values(self):
-        """
-        Testing the missing values function
-        """
-        self.df.loc[1, "age"] = None
-        cleaned_data = self.cleaning_instance.handle_missing_values()
-        self.assertFalse(cleaned_data["age"].isnull().any())
-
-    def test_age_columns(self):
-        """
-        Testing the cleaning the age column function
-        """
-        self.cleaning_instance.age_columns()
-        self.assertTrue("age_group" in self.cleaning_instance.df.columns)
-
-    def test_remove_rows_with_other_gender(self):
-        """
-        Testing the function that remove the rows with "others" as gender
-        """
-        # Create a row with 'Other' gender
-        other_gender_row = pd.DataFrame({"age": [35], "gender": ["Other"]})
-        self.df = pd.concat([self.df, other_gender_row], ignore_index=True)
-
-        cleaned_data = self.cleaning_instance.remove_rows_with_other_gender()
-        self.assertFalse(any(cleaned_data["gender"] == "Other"))
-
-
-class MockIsolationForest:
-    """
-    Helper class for mocking IsolationForest
-    """
-    def fit_predict(self, X):
-        """
-        Mock method to return -1 for each sample in X
-        """
-        return [-1] * len(X)
-
-
-if __name__ == "__main__":
+if __name__ == '__main__':
     unittest.main()

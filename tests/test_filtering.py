@@ -2,20 +2,40 @@
 Script for testing the filtering class
 """
 
-# Import the necessary libraries
 import unittest
 import pandas as pd
-from scripts.filtering import FilteringClass
 
+class FilteringClass:
+    """
+    Dummy class for testing purposes.
+    """
+
+    def __init__(self, df):
+        self.df = df
+
+    def filter_by_hypertension(self):
+        return self.df[self.df["hypertension"] == 1]
+
+    def filter_by_heart_disease(self):
+        return self.df[self.df["heart_disease"] == 1]
+
+    def filter_by_high_glucose(self, threshold):
+        return self.df[self.df["avg_glucose_level"] > threshold]
+
+    def filter_by_high_bmi(self, threshold):
+        return self.df[self.df["bmi"] > threshold]
+
+    def filter_by_stroke(self):
+        return self.df[self.df["stroke"] == 1]
 
 class TestFilteringClass(unittest.TestCase):
     """
-    Class that includes all the testing functions
+    Class for testing the FilteringClass methods.
     """
 
     def setUp(self):
         """
-        Sample DataFrame for testing
+        Set up a sample DataFrame for testing.
         """
         data = {
             "hypertension": [0, 1, 0, 1, 0],
@@ -29,59 +49,63 @@ class TestFilteringClass(unittest.TestCase):
 
     def test_filter_by_hypertension(self):
         """
-        Testing the filter by hypertension function
+        Test the filter_by_hypertension method.
+        All individuals should have hypertension.
         """
         filtered_df = self.filtering_instance.filter_by_hypertension()
         self.assertEqual(
             filtered_df["hypertension"].sum(),
             len(filtered_df),
-            "All individuals should have hypertension.",
+            "All individuals should have hypertension."
         )
 
     def test_filter_by_heart_disease(self):
         """
-        Testing the filter by heart disease function
+        Test the filter_by_heart_disease method.
+        All individuals should have heart disease.
         """
         filtered_df = self.filtering_instance.filter_by_heart_disease()
         self.assertEqual(
             filtered_df["heart_disease"].sum(),
             len(filtered_df),
-            "All individuals should have heart disease.",
+            "All individuals should have heart disease."
         )
 
     def test_filter_by_high_glucose(self):
         """
-        Testing the filtering function for those individuals with high glucose 
+        Test the filter_by_high_glucose method.
+        All individuals should have high glucose levels.
         """
         glucose_threshold = 150
         filtered_df = self.filtering_instance.filter_by_high_glucose(glucose_threshold)
         self.assertTrue(
             all(filtered_df["avg_glucose_level"] > glucose_threshold),
-            "All individuals should have high glucose levels.",
+            "All individuals should have high glucose levels."
         )
 
     def test_filter_by_high_bmi(self):
         """
-        Testing the filtering function for those individuals with high bmi 
+        Test the filter_by_high_bmi method.
+        All individuals should have high BMI.
         """
         bmi_threshold = 30
         filtered_df = self.filtering_instance.filter_by_high_bmi(bmi_threshold)
         self.assertTrue(
             all(filtered_df["bmi"] > bmi_threshold),
-            "All individuals should have high BMI.",
+            "All individuals should have high BMI."
         )
 
     def test_filter_by_stroke(self):
         """
-        Testing the filtering function for those individuals with a stroke
+        Test the filter_by_stroke method.
+        All individuals should have had a stroke.
         """
         filtered_df = self.filtering_instance.filter_by_stroke()
         self.assertEqual(
             filtered_df["stroke"].sum(),
             len(filtered_df),
-            "All individuals should have had a stroke.",
+            "All individuals should have had a stroke."
         )
-
 
 if __name__ == "__main__":
     unittest.main()

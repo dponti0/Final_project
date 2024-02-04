@@ -153,7 +153,6 @@ class DatasetExplorer:
             ]
             print(individuals_with_all_conditions[selected_columns])
 
-
             # Save the information as a text file in the outputs folder
             content = "\nIndividuals with all conditions:\n"
             content += individuals_with_all_conditions.to_string(index=False) + "\n"

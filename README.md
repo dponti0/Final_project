@@ -75,7 +75,7 @@ Pytest has been used to check wether all tests pass or not and to correct some m
 
 This command will execute all the tests in the tests directory.
 All the tests should pass, nevertheless, some warnings may arise. Those are the actual results:
-- *33 passed, 1 warning in 1.99s*
+- *27 passed, 1 warning in 1.39s*
 
 ## Conclusions
 
