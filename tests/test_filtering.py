@@ -5,6 +5,7 @@ Script for testing the filtering class
 import unittest
 import pandas as pd
 
+
 class FilteringClass:
     """
     Dummy class for testing purposes.
@@ -27,6 +28,7 @@ class FilteringClass:
 
     def filter_by_stroke(self):
         return self.df[self.df["stroke"] == 1]
+
 
 class TestFilteringClass(unittest.TestCase):
     """
@@ -56,7 +58,7 @@ class TestFilteringClass(unittest.TestCase):
         self.assertEqual(
             filtered_df["hypertension"].sum(),
             len(filtered_df),
-            "All individuals should have hypertension."
+            "All individuals should have hypertension.",
         )
 
     def test_filter_by_heart_disease(self):
@@ -68,7 +70,7 @@ class TestFilteringClass(unittest.TestCase):
         self.assertEqual(
             filtered_df["heart_disease"].sum(),
             len(filtered_df),
-            "All individuals should have heart disease."
+            "All individuals should have heart disease.",
         )
 
     def test_filter_by_high_glucose(self):
@@ -80,7 +82,7 @@ class TestFilteringClass(unittest.TestCase):
         filtered_df = self.filtering_instance.filter_by_high_glucose(glucose_threshold)
         self.assertTrue(
             all(filtered_df["avg_glucose_level"] > glucose_threshold),
-            "All individuals should have high glucose levels."
+            "All individuals should have high glucose levels.",
         )
 
     def test_filter_by_high_bmi(self):
@@ -92,7 +94,7 @@ class TestFilteringClass(unittest.TestCase):
         filtered_df = self.filtering_instance.filter_by_high_bmi(bmi_threshold)
         self.assertTrue(
             all(filtered_df["bmi"] > bmi_threshold),
-            "All individuals should have high BMI."
+            "All individuals should have high BMI.",
         )
 
     def test_filter_by_stroke(self):
@@ -104,8 +106,9 @@ class TestFilteringClass(unittest.TestCase):
         self.assertEqual(
             filtered_df["stroke"].sum(),
             len(filtered_df),
-            "All individuals should have had a stroke."
+            "All individuals should have had a stroke.",
         )
+
 
 if __name__ == "__main__":
     unittest.main()

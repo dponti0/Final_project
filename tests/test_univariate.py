@@ -5,6 +5,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 # Mocking the UnivariateVisualizer class
 class UnivariateVisualizer:
     def __init__(self, df):

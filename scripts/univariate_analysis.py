@@ -108,7 +108,7 @@ class UnivariateVisualizer:
             hypertension_counts,
             startangle=90,
             colors=colors,
-            wedgeprops={'width': 0.5},
+            wedgeprops={"width": 0.5},
             shadow=True,
         )
 
@@ -141,7 +141,7 @@ class UnivariateVisualizer:
             heart_disease_counts,
             startangle=90,
             colors=colors,
-            wedgeprops={'width': 0.5},
+            wedgeprops={"width": 0.5},
             labeldistance=1.2,
             shadow=True,
         )
@@ -229,7 +229,7 @@ class UnivariateVisualizer:
             marital_status_counts,
             startangle=90,
             colors=colors,
-            wedgeprops={'width': 0.5},
+            wedgeprops={"width": 0.5},
             shadow=True,
         )
 
@@ -261,8 +261,8 @@ class UnivariateVisualizer:
             residence_type_counts,
             startangle=90,
             colors=colors,
-            wedgeprops={'width': 0.4},
-            textprops={"weight":"bold"},
+            wedgeprops={"width": 0.4},
+            textprops={"weight": "bold"},
             labeldistance=1.2,
             shadow=True,
         )  # Añade shadow=True para sombras
@@ -325,7 +325,7 @@ class UnivariateVisualizer:
             strokes_counts,
             startangle=90,
             colors=colors,
-            wedgeprops={'width': 0.5},
+            wedgeprops={"width": 0.5},
             labeldistance=1.2,
             shadow=True,
         )

@@ -41,17 +41,14 @@ class DataCleaningClass:
         """
         Convert all string columns to lowercase
         """
-        self.df = self.df.applymap(
-            lambda x: x.lower() if isinstance(x, str) else x)
+        self.df = self.df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
         return self.df
-
 
     def convert_first_letter_to_lowercase(self) -> pd.DataFrame:
         """
         Convert the first letter of all string columns to lowercase
         """
-        self.df = self.df.applymap(
-            lambda x: x.lower() if isinstance(x, str) else x)
+        self.df = self.df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
         return self.df
 
     def min_age(self, min_age: int) -> pd.DataFrame:

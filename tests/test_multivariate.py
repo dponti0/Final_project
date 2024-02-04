@@ -8,10 +8,12 @@ from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
 
+
 class MultivariateVisualizer:
     """
     Class for mocking the MultivariateVisualizer class
     """
+
     def __init__(self, df):
         self.df = df
 
@@ -102,7 +104,7 @@ class TestMultivariateVisualizer(unittest.TestCase):
     def test_bmi_glucose_scatter(self):
         """
         Test the bmi-glucose visualization function
-        """               
+        """
         self._test_visualization_method(self.visualizer.bmi_glucose_scatter)
 
     def test_glucose_smoking_distribution(self):
@@ -126,7 +128,7 @@ class TestMultivariateVisualizer(unittest.TestCase):
     def test_age_stroke_rate_lineplot(self):
         """
         Test the lineplot visualization function
-        """    
+        """
         self._test_visualization_method(self.visualizer.age_stroke_rate_lineplot)
 
     def test_marriage_bmi_relation(self):
@@ -137,7 +139,7 @@ class TestMultivariateVisualizer(unittest.TestCase):
 
     def test_correlation_heatmap(self):
         """
-        Test the correlation heatmap 
+        Test the correlation heatmap
         """
         self._test_visualization_method(self.visualizer.correlation_heatmap)
 

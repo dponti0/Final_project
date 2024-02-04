@@ -147,9 +147,20 @@ class DatasetExplorer:
             print()
             print("Individuals with all conditions:")
             selected_columns = [
-                'id', 'gender', 'age', 'hypertension', 'heart_disease', 
-                'ever_married', 'work_type', 'Residence_type', 'avg_glucose_level', 
-                'bmi', 'smoking_status', 'stroke', 'age_group', 'age_cat'
+                "id",
+                "gender",
+                "age",
+                "hypertension",
+                "heart_disease",
+                "ever_married",
+                "work_type",
+                "Residence_type",
+                "avg_glucose_level",
+                "bmi",
+                "smoking_status",
+                "stroke",
+                "age_group",
+                "age_cat",
             ]
             print(individuals_with_all_conditions[selected_columns])
 
