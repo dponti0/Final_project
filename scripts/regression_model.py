@@ -75,10 +75,10 @@ if __name__ == "__main__":
     print("\nThe regression model code is properly working!!")
 
     # Input and output paths
-    input_path = "outputs/cleaned_dataset.csv"
-    output_path = "outputs/data_with_stroke_risk.csv"
+    INPUT_PATH = "outputs/cleaned_dataset.csv"
+    OUTPUT_PATH = "outputs/data_with_stroke_risk.csv"
 
-    df = pd.read_csv(input_path)
+    df = pd.read_csv(INPUT_PATH)
 
     # Separate features (X) and the target variable (y)
     X = df.drop(["id", "stroke"], axis=1)

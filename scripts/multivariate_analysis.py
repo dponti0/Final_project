@@ -3,7 +3,6 @@ Script for carrying out the multivariate visual analysis
 """
 
 # Import the required libraries
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -30,7 +29,7 @@ class MultivariateVisualizer:
         """
         Function to conduct the age-stroke relation study
         """
-        fig, ax = plt.subplots(figsize=(12, 6))
+        _, ax = plt.subplots(figsize=(12, 6))
 
         # Bar plot for age category distribution
         sns.countplot(x="age_cat", hue="stroke", data=self.df, palette="pastel", ax=ax)
@@ -54,7 +53,7 @@ class MultivariateVisualizer:
         Function to conduct the glucose-stroke relation study (kdeplot)
         """
 
-        fig, ax = plt.subplots(figsize=(12, 6))
+        _, ax = plt.subplots(figsize=(12, 6))
 
         # KDE plot
         sns.kdeplot(
@@ -88,7 +87,7 @@ class MultivariateVisualizer:
         Function to create the violinplot and conduct the bmi-stroke study
         """
 
-        fig, ax = plt.subplots(figsize=(12, 6))
+        _, ax = plt.subplots(figsize=(12, 6))
 
         # Violin plot for BMI-Stroke distribution
         sns.violinplot(x="stroke", y="bmi", data=self.df, palette="Set2", ax=ax)
@@ -141,6 +140,9 @@ class MultivariateVisualizer:
         self.save_and_close()
 
     def heart_disease_gender_age(self):
+        """
+        Visualize the heart disease-gender distribution
+        """
         plt.figure(figsize=(12, 6))
 
         sns.barplot(
@@ -342,7 +344,7 @@ class MultivariateVisualizer:
         sns.set(style="whitegrid")
 
         # Figure and axes
-        fig, ax = plt.subplots(figsize=(12, 6))
+        _, ax = plt.subplots(figsize=(12, 6))
 
         # Calculate the stroke rate per age group
         age_groups = self.df["age_cat"].unique()
@@ -383,7 +385,7 @@ class MultivariateVisualizer:
         background_color = "#f6f5f5"
 
         # Create the figure and axes
-        fig, ax = plt.subplots(figsize=(12, 6), facecolor=background_color)
+        _, ax = plt.subplots(figsize=(12, 6), facecolor=background_color)
         ax.set_facecolor(background_color)
 
         # Create the kernel density estimate (kdeplot)
@@ -446,7 +448,7 @@ class MultivariateVisualizer:
         correlation_matrix = numeric_df.corr()
 
         # Figure and axis
-        fig, ax = plt.subplots(figsize=(12, 9))
+        _, ax = plt.subplots(figsize=(12, 9))
 
         # Create the heatmap
         sns.heatmap(
@@ -483,7 +485,7 @@ class MultivariateVisualizer:
         explode = [0, 0, 0.1, 0, 0]
 
         # Two subplots, one for the pie chart and one for the label
-        fig, ax = plt.subplots(figsize=(8, 8))
+        _, _ = plt.subplots(figsize=(8, 8))
         ax_pie = plt.subplot(111)
 
         # Create the pie chart

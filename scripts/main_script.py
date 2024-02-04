@@ -4,21 +4,21 @@ and grouping them all in one same script
 """
 
 # Import the required libraries
+import os
+import subprocess
 import pandas as pd
 import matplotlib.backends.backend_pdf as pdf_backend
 from univariate_analysis import UnivariateVisualizer
 from multivariate_analysis import MultivariateVisualizer
-import os
-import subprocess
 
 
 # Define paths
-cleaned_dataset_path = "outputs/cleaned_dataset.csv"
-univariate_pdf_path = "outputs/univariate_analysis.pdf"
-multivariate_pdf_path = "outputs/multivariate_analysis.pdf"
-feature_engineering_script_path = "scripts/feature_engineering.py"
-regression_model_path = "scripts/regression_model.py"
-marriage_study_path = "scripts/marriage_study.py"
+CLEANED_DATASET_PATH = "outputs/cleaned_dataset.csv"
+UNIVARIATE_PDF_PATH = "outputs/univariate_analysis.pdf"
+MULTIVARIATE_PDF_PATH = "outputs/multivariate_analysis.pdf"
+FEATURE_ENGINEERING_SCRIPT_PATH = "scripts/feature_engineering.py"
+REGRESSION_MODEL_PATH = "models/regression_model.pkl"
+MARRIAGE_STUDY_PATH = "outputs/marriage_study.pdf"
 
 
 # Define the functions for runing each script
@@ -27,7 +27,7 @@ def run_feature_engineering_script():
     Function for running the feature engineering script
     """
     try:
-        subprocess.run(["python", feature_engineering_script_path])
+        subprocess.run(["python", FEATURE_ENGINEERING_SCRIPT_PATH])
     except Exception as e:
         print(f"Error while running the feature engineering script: {e}")
 
@@ -37,7 +37,7 @@ def run_regression_model_script():
     Function for running the predictive modeling script
     """
     try:
-        subprocess.run(["python", regression_model_path])
+        subprocess.run(["python", REGRESSION_MODEL_PATH])
     except Exception as e:
         print(f"Error while running the regression model script: {e}")
 
@@ -47,7 +47,7 @@ def run_marriage_study_script():
     Function for running the marriage study
     """
     try:
-        subprocess.run(["python", marriage_study_path])
+        subprocess.run(["python", MARRIAGE_STUDY_PATH])
     except Exception as e:
         print(f"Error while running the hypothesis testing script: {e}")
 
@@ -90,11 +90,15 @@ def visualize_multivariate_relationships(bi_visualizer):
 
 
 def main():
+    """
+    Main function
+    """
+
     print("\nThe main script is properly running!!")
     print()
 
     # Read the cleaned dataset
-    data = pd.read_csv(cleaned_dataset_path)
+    data = pd.read_csv(CLEANED_DATASET_PATH)
 
     # Create the 'outputs' folder if it does not exist
     os.makedirs("outputs", exist_ok=True)

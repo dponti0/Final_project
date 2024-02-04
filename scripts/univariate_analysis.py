@@ -3,7 +3,6 @@ Script for carrying out the univariate analysis
 """
 
 # Import the required libraries
-import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
@@ -69,7 +68,6 @@ class UnivariateVisualizer:
 
         # Filter the df & calculate the gender % for each category
         f_df = self.df[self.df["gender"].isin(["male", "female"])]
-        total_samples = len(f_df)
         gender_percentages = f_df["gender"].value_counts(normalize=True) * 100
 
         # Configure the style
@@ -106,11 +104,11 @@ class UnivariateVisualizer:
         colors = sns.color_palette("pastel")
 
         # Pie chart characteristics
-        wedges, _ = plt.pie(
+        _, _ = plt.pie(
             hypertension_counts,
             startangle=90,
             colors=colors,
-            wedgeprops=dict(width=0.5),
+            wedgeprops={'width': 0.5},
             shadow=True,
         )
 
@@ -143,7 +141,7 @@ class UnivariateVisualizer:
             heart_disease_counts,
             startangle=90,
             colors=colors,
-            wedgeprops=dict(width=0.5),
+            wedgeprops={'width': 0.5},
             labeldistance=1.2,
             shadow=True,
         )
@@ -231,7 +229,7 @@ class UnivariateVisualizer:
             marital_status_counts,
             startangle=90,
             colors=colors,
-            wedgeprops=dict(width=0.5),
+            wedgeprops={'width': 0.5},
             shadow=True,
         )
 
@@ -263,8 +261,8 @@ class UnivariateVisualizer:
             residence_type_counts,
             startangle=90,
             colors=colors,
-            wedgeprops=dict(width=0.4),
-            textprops=dict(weight="bold"),
+            wedgeprops={'width': 0.4},
+            textprops={"weight":"bold"},
             labeldistance=1.2,
             shadow=True,
         )  # Añade shadow=True para sombras
@@ -327,7 +325,7 @@ class UnivariateVisualizer:
             strokes_counts,
             startangle=90,
             colors=colors,
-            wedgeprops=dict(width=0.4),
+            wedgeprops={'width': 0.5},
             labeldistance=1.2,
             shadow=True,
         )

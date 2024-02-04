@@ -4,10 +4,10 @@ Script for testing the multivariate class
 
 # Import the necessary libraries
 import unittest
+from contextlib import redirect_stdout
+from io import BytesIO
 import pandas as pd
 import matplotlib.pyplot as plt
-from io import BytesIO
-from contextlib import redirect_stdout
 from scripts.multivariate_analysis import MultivariateVisualizer
 
 
@@ -53,30 +53,57 @@ class TestMultivariateVisualizer(unittest.TestCase):
         self._test_visualization_method(self.visualizer.age_stroke_distribution)
 
     def test_glucose_stroke_distribution(self):
+        """
+        Test the glucose-stroke visualization function
+        """
         self._test_visualization_method(self.visualizer.glucose_stroke_distribution)
 
     def test_bmi_stroke_distribution(self):
+        """
+        Test the bmi-stroke visualization function
+        """
         self._test_visualization_method(self.visualizer.bmi_stroke_distribution)
 
     def test_bmi_glucose_scatter(self):
+        """
+        Test the bmi-glucose visualization function
+        """               
         self._test_visualization_method(self.visualizer.bmi_glucose_scatter)
 
     def test_glucose_smoking_distribution(self):
+        """
+        Test the glucose-smoking status function
+        """
         self._test_visualization_method(self.visualizer.glucose_smoking_distribution)
 
     def test_work_type_stroke_distribution(self):
+        """
+        Test the strokes related to work type function
+        """
         self._test_visualization_method(self.visualizer.work_type_stroke_distribution)
 
     def test_marriage_glucose_relation(self):
+        """
+        Test the relation between marriage and bmi function
+        """
         self._test_visualization_method(self.visualizer.marriage_glucose_relation)
 
     def test_age_stroke_rate_lineplot(self):
+        """
+        Test the lineplot visualization function
+        """    
         self._test_visualization_method(self.visualizer.age_stroke_rate_lineplot)
 
     def test_marriage_bmi_relation(self):
+        """
+        Test the marriage-bmi relation function
+        """
         self._test_visualization_method(self.visualizer.marriage_bmi_relation)
 
     def test_correlation_heatmap(self):
+        """
+        Test the correlation heatmap 
+        """
         self._test_visualization_method(self.visualizer.correlation_heatmap)
 
     def _test_visualization_method(self, method):

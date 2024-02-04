@@ -1,15 +1,14 @@
 """
-Script that performs a hypothesis test (chi2) to analyze the association between marital status 
-and heart diseases
+Script that performs a hypothesis test (chi2) to analyze the association between marital status and heart diseases
 """
 
 # Import the necessary libraries
+import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy.stats import chi2_contingency
 from matplotlib.backends.backend_pdf import PdfPages
-import os
 
 
 def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
@@ -82,7 +81,7 @@ def perform_hypothesis_testing(dataset_path, output_path, save_plot=True):
         sns.despine()
 
         # Hypothesis, conclusion and interpretation message
-        hypothesis_text = f"Hypothesis: The presence of heart diseases is associated with marital status."
+        hypothesis_text = "Hypothesis: The presence of heart diseases is associated with marital status."
         conclusion_text = f"Conclusion: {hypothesis_result} the null hypothesis with a significance level of {alpha}."
 
         interpretation_text = (

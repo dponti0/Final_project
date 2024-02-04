@@ -4,11 +4,11 @@ Script for testing the univariate class
 
 # Import the necessary libraries
 import unittest
+from contextlib import redirect_stdout
+from io import BytesIO
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-from io import BytesIO
-from contextlib import redirect_stdout
 from scripts.univariate_analysis import UnivariateVisualizer
 
 
@@ -75,7 +75,7 @@ class TestUnivariateVisualizer(unittest.TestCase):
         if not gender_percentages.empty:
             sns.set(style="whitegrid")
             plt.figure(figsize=(7, 5))
-            ax = sns.barplot(
+            _ = sns.barplot(
                 x=gender_percentages.values,
                 y=gender_percentages.index,
                 palette="pastel",

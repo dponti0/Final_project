@@ -41,16 +41,17 @@ class DataCleaningClass:
         """
         Convert all string columns to lowercase
         """
-        self.df = self.df.applymap(lambda x: x.lower() if isinstance(x, str) else x)
+        self.df = self.df.applymap(
+            lambda x: x.lower() if isinstance(x, str) else x)
         return self.df
+
 
     def convert_first_letter_to_lowercase(self) -> pd.DataFrame:
         """
         Convert the first letter of all string columns to lowercase
         """
         self.df = self.df.applymap(
-            lambda x: x[0].lower() + x[1:] if isinstance(x, str) else x
-        )
+            lambda x: x.lower() if isinstance(x, str) else x)
         return self.df
 
     def min_age(self, min_age: int) -> pd.DataFrame:
@@ -69,7 +70,7 @@ class DataCleaningClass:
 
     def age_columns(self):
         """
-        Create a new column 'age_group' in the DataFrame based on age grouping in 10s.
+        Create a new column 'age_group' based on age grouping in 10s.
         Ensure 'age' column is of integer type.
         """
         self.df["age"] = self.df["age"].astype(int)

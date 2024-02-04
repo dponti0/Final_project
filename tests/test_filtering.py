@@ -28,6 +28,9 @@ class TestFilteringClass(unittest.TestCase):
         self.filtering_instance = FilteringClass(self.df)
 
     def test_filter_by_hypertension(self):
+        """
+        Testing the filter by hypertension function
+        """
         filtered_df = self.filtering_instance.filter_by_hypertension()
         self.assertEqual(
             filtered_df["hypertension"].sum(),
@@ -36,6 +39,9 @@ class TestFilteringClass(unittest.TestCase):
         )
 
     def test_filter_by_heart_disease(self):
+        """
+        Testing the filter by heart disease function
+        """
         filtered_df = self.filtering_instance.filter_by_heart_disease()
         self.assertEqual(
             filtered_df["heart_disease"].sum(),
@@ -44,6 +50,9 @@ class TestFilteringClass(unittest.TestCase):
         )
 
     def test_filter_by_high_glucose(self):
+        """
+        Testing the filtering function for those individuals with high glucose 
+        """
         glucose_threshold = 150
         filtered_df = self.filtering_instance.filter_by_high_glucose(glucose_threshold)
         self.assertTrue(
@@ -52,6 +61,9 @@ class TestFilteringClass(unittest.TestCase):
         )
 
     def test_filter_by_high_bmi(self):
+        """
+        Testing the filtering function for those individuals with high bmi 
+        """
         bmi_threshold = 30
         filtered_df = self.filtering_instance.filter_by_high_bmi(bmi_threshold)
         self.assertTrue(
@@ -60,6 +72,9 @@ class TestFilteringClass(unittest.TestCase):
         )
 
     def test_filter_by_stroke(self):
+        """
+        Testing the filtering function for those individuals with a stroke
+        """
         filtered_df = self.filtering_instance.filter_by_stroke()
         self.assertEqual(
             filtered_df["stroke"].sum(),
